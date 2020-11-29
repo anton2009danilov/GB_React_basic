@@ -10,16 +10,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
+/***/ "./index.jsx":
+/*!*******************!*\
+  !*** ./index.jsx ***!
+  \*******************/
 /*! namespace exports */
 /*! exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"../node_modules/react-dom/index.js\");\n\n\nvar element = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", {\n  className: \"element\"\n}, \"\\u041C\\u044B \\u043F\\u043E\\u0434\\u043A\\u043B\\u044E\\u0447\\u0438\\u043B\\u0438 React, \\u043D\\u043E \\u044D\\u0442\\u043E \\u043D\\u0435 \\u0442\\u043E\\u0447\\u043D\\u043E\"); // const element = React.createElement(\n//     'h1',\n//     { className: \"element\" },\n//     'Кажется, мы подключили React',\n//  );\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render(element, document.getElementById('root'));\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"../node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"../node_modules/react-dom/index.js\");\n\n\nvar messages = [\"Привет\", \"Как дела?\"];\n\nvar MessageComponent = function MessageComponent(props) {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, props.text);\n};\n\nvar MessageField = function MessageField(props) {\n  return props.messages.map(function (message) {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MessageComponent, {\n      text: message\n    });\n  });\n};\n\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MessageField, {\n  messages: messages\n}), document.getElementById('root'));\n\n//# sourceURL=webpack:///./index.jsx?");
 
 /***/ }),
 
@@ -326,7 +326,7 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
-/******/ 	__webpack_require__("./index.js");
+/******/ 	__webpack_require__("./index.jsx");
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
