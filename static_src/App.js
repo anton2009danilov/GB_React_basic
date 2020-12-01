@@ -8,10 +8,6 @@ const addMessage = function() {
     // console.log(123);
     messages.push("Всё ОК");
 
-    renderApp()
-}
-
-function renderApp() {
     ReactDOM.render(
         <App/>,
         document.getElementById('root')
