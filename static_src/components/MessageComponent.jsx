@@ -5,10 +5,10 @@ class MessageComponent extends React.Component {
     static propTypes = {
         text: PropTypes.string.isRequired
     };
-    
+
     render() {
         return (
-        <div>{ this.props.text }</div>
+            <div>{this.props.text}</div>
         );
     }
 };
