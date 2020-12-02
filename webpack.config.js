@@ -10,6 +10,10 @@ module.exports = {
         path: path.resolve(__dirname, 'static', 'build'),
         filename: 'app.js'
     },
+    resolve: {
+        modules: [`${__dirname}/static_src`, 'node_modules'],
+        extensions: ['.js', '.jsx'],
+     },
 
     module: {
         rules: [{
@@ -19,6 +23,14 @@ module.exports = {
             exclude: /node_modules/,
             options: {
                 presets: ['@babel/env', '@babel/react'],
+                plugins: [
+                    [
+                        "@babel/plugin-proposal-class-properties",
+                        {
+                            "loose": true
+                        }
+                    ]
+                ]
             },
         },],
     },

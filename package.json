@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --mode development",
-    "server": "webpack-dev-server"
+    "server": "webpack-dev-server",
+    "watch": "webpack --watch"
   },
   "author": "Anton Danilov",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.12.8",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-react": "^7.12.7",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "webpack-dev-server": "^3.11.0"
