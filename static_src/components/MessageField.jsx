@@ -13,14 +13,17 @@ class MessageField extends React.Component {
                 text: "Как дела?"
             }
         ],
+        newMessage: ''
     };
+
+    handleWriteMessage = (e) => this.setState({ newMessage: e.target.value })
 
     addMessage = () => {
         const arr = [...this.state.messages];
         const id = arr[arr.length - 1].id + 1;
 
-        arr.push({ id: id, text: "Всё норм" });
-        this.setState({ messages: arr })
+        arr.push({ id: id, text: this.state.newMessage });
+        this.setState({ messages: arr });
     }
 
     componentDidUpdate() {
@@ -38,6 +41,7 @@ class MessageField extends React.Component {
 
     renderMessage = (message) => <MessageComponent text={message.text} key={message.id} />;
 
+
     render() {
         const messageElements = this.state.messages.map(
             this.renderMessage
@@ -46,7 +50,9 @@ class MessageField extends React.Component {
         return (
             <div>
                 { messageElements}
-                <button onClick={this.addMessage}>Add message</button>
+                
+                <input type="text" name='message' value={this.state.value} onChange={this.handleWriteMessage} />
+                <button onClick={this.addMessage}>Отправить</button>
             </div>
         )
 
