@@ -2,25 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MessageField from './components/MessageField'
 
-let messages = ["Привет", "Как дела?"];
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {messages: ["Привет", "Как дела?"]};
+        
+        this.addMessage = this.addMessage.bind(this);
+      }
 
-const addMessage = function() {
-    // console.log(123);
-    messages.push("Всё ОК");
+    addMessage() {
+        const arr = this.state.messages;
+        arr.push("Всё норм");
+        
+        this.setState( state => ({
+            messages: arr
+        }))
+    }
 
-    ReactDOM.render(
-        <App/>,
-        document.getElementById('root')
-    );
-}
-
-function App() {
-    return (
-        <div>
-            <button id='newMessageBtn' onClick={addMessage}>Add message</button>
-            <MessageField messages= {messages}></MessageField>
-        </div>
-    )
+    render() {
+        return (
+            <div>
+                <button onClick={this.addMessage}>Add message</button>
+                <MessageField messages= {this.state.messages}></MessageField>
+            </div>
+        )
+    }
 }
 
 export default App;
