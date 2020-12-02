@@ -8,7 +8,10 @@ class MessageComponent extends React.Component {
 
     render() {
         return (
-            <div>{this.props.text}</div>
+            <div>
+                <h4>{this.props.userName ? this.props.userName : "Аноним"}</h4>
+                <p>{this.props.text}</p>
+            </div>
         );
     }
 };
