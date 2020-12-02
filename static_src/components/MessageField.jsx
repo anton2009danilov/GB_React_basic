@@ -3,21 +3,30 @@ import MessageComponent from './MessageComponent';
 
 class MessageField extends React.Component {
     state = {
-        messages: ["Привет", "Как дела?"],
+        messages: [
+            {
+                id: 1,
+                text: "Привет"
+            },
+            {
+                id: 2,
+                text: "Как дела?"
+            }
+        ],
     };
 
     addMessage = () => {
         const arr = [...this.state.messages];
-        // const arr = this.state.messages;
-        arr.push("Всё норм");
-        console.log(this.state.messages)
+        const id = arr[arr.length - 1].id + 1;
 
+        arr.push({ id: id, text: "Всё норм" });
         this.setState({ messages: arr })
     }
 
     componentDidUpdate() {
         const arr = [...this.state.messages];
-        arr.push('Не приставай ко мне! Я - робот!')
+        const id = arr[arr.length - 1].id + 1;
+        arr.push({ id: id, text: "Не приставай ко мне! Я - робот!" });
 
         if (this.state.messages.length % 2 === 1)
             setTimeout(() =>
@@ -27,7 +36,7 @@ class MessageField extends React.Component {
             );
     }
 
-    renderMessage = (message, ind) => <MessageComponent text={message} key={ind} />;
+    renderMessage = (message) => <MessageComponent text={message.text} key={message.id} />;
 
     render() {
         const messageElements = this.state.messages.map(
