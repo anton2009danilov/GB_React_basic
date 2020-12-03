@@ -3,5 +3,11 @@
     "tabWidth": 4,
     "semi": false,
     "singleQuote": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "overrides": [{
+        "files": ".prettierrc",
+        "options": {
+            "parser": "json"
+        }
+    }]
 }
