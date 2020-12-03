@@ -1,91 +1,107 @@
-import React from 'react';
-import MessageComponent from './MessageComponent';
+import React from 'react'
+import MessageComponent from './MessageComponent'
 
 class MessageField extends React.Component {
     state = {
         messages: [
             {
                 id: 1,
-                text: "Привет",
-                userName: "Donald"
+                text: 'Привет',
+                userName: 'Donald',
             },
             {
                 id: 2,
-                text: "Как дела?",
-                userName: "Vova"
-            }
+                text: 'Как дела?',
+                userName: 'Vova',
+            },
         ],
         newMessage: '',
         newUserName: '',
-        messageCounter: 2
-    };
+        messageCounter: 2,
+    }
 
-    handleWriteMessage = (e) => this.setState({ newMessage: e.target.value });
+    handleWriteMessage = (e) => this.setState({ newMessage: e.target.value })
     handleWriteName = (e) => this.setState({ newUserName: e.target.value })
 
     addMessage = () => {
-        const arr = [...this.state.messages];
-        const id = arr[arr.length - 1].id + 1;
+        const arr = [...this.state.messages]
+        const id = arr[arr.length - 1].id + 1
 
-        arr.push({ id: id, text: this.state.newMessage, userName: this.state.newUserName });
-        this.setState({ messages: arr });
+        arr.push({
+            id: id,
+            text: this.state.newMessage,
+            userName: this.state.newUserName,
+        })
+        this.setState({ messages: arr })
     }
 
     componentDidUpdate() {
-        const arr = [...this.state.messages];
-        const lastMessage = arr[arr.length - 1];
-        const newId = lastMessage.id + 1.
-        const userName = lastMessage.userName ? lastMessage.userName : "Аноним";
-        const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
-        const newCounter = arr.length + 1;
+        const arr = [...this.state.messages]
+        const lastMessage = arr[arr.length - 1]
+        const newId = lastMessage.id + 1
+        const userName = lastMessage.userName ? lastMessage.userName : 'Аноним'
+        const robotText = `Не приставай ко мне, ${userName}! Я - робот!`
+        const newCounter = arr.length + 1
 
         if (this.state.messageCounter === arr.length - 1) {
-
             arr.push({
                 id: newId,
                 text: robotText,
-                userName: "Робот"
-            });
+                userName: 'Робот',
+            })
 
-            setTimeout(() =>
-                this.setState(
-                    {
+            setTimeout(
+                () =>
+                    this.setState({
                         messages: arr,
-                        messageCounter: newCounter
-                    }
-                ), 1000
-            );
+                        messageCounter: newCounter,
+                    }),
+                1000
+            )
         } else {
-            return null;
+            return null
         }
     }
 
-    renderMessage = (message) =>
-        <MessageComponent text={message.text} userName={message.userName} key={message.id} />;
-
+    renderMessage = (message) => (
+        <MessageComponent
+            text={message.text}
+            userName={message.userName}
+            key={message.id}
+        />
+    )
 
     render() {
-        const messageElements = this.state.messages.map(
-            this.renderMessage
-        );
+        const messageElements = this.state.messages.map(this.renderMessage)
 
         return (
-            <div className='container'>
-                { messageElements}
+            <div className="container">
+                {messageElements}
 
                 <div className="d-flex flex-column card p-3">
-                    <label htmlFor='newText'>Введите имя пользователя</label>
-                    <input type="text" id='newText' value={this.state.value} onChange={this.handleWriteName} />
+                    <label htmlFor="newText">Введите имя пользователя</label>
+                    <input
+                        type="text"
+                        id="newText"
+                        value={this.state.value}
+                        onChange={this.handleWriteName}
+                    />
 
-                    <label htmlFor='name'>Введите сообщение</label>
-                    <input type="text" id='name' value={this.state.value} onChange={this.handleWriteMessage} />
+                    <label htmlFor="name">Введите сообщение</label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={this.state.value}
+                        onChange={this.handleWriteMessage}
+                    />
 
-                    <button className='mt-2' onClick={this.addMessage}>Отправить</button>
+                    <button className="mt-2" onClick={this.addMessage}>
+                        Отправить
+                    </button>
                 </div>
             </div>
         )
-
     }
-};
+}
 
-export default MessageField;
+export default MessageField
