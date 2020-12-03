@@ -8,7 +8,7 @@ class MessageComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="border-top mb-2">
                 <h4>{this.props.userName ? this.props.userName : "Аноним"}</h4>
                 <p>{this.props.text}</p>
             </div>

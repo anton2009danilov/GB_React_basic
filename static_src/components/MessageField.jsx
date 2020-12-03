@@ -16,7 +16,8 @@ class MessageField extends React.Component {
             }
         ],
         newMessage: '',
-        newUserName: ''
+        newUserName: '',
+        messageCounter: 2
     };
 
     handleWriteMessage = (e) => this.setState({ newMessage: e.target.value });
@@ -35,19 +36,28 @@ class MessageField extends React.Component {
         const lastMessage = arr[arr.length - 1];
         const newId = lastMessage.id + 1.
         const userName = lastMessage.userName ? lastMessage.userName : "Аноним";
+        const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+        const newCounter = arr.length + 1;
 
-        arr.push({
-            id: newId,
-            text: `Не приставай ко мне, ${userName}! Я - робот!`,
-            userName: "Робот"
-        });
+        if (this.state.messageCounter === arr.length - 1) {
 
-        if (this.state.messages.length % 2 === 1)
+            arr.push({
+                id: newId,
+                text: robotText,
+                userName: "Робот"
+            });
+
             setTimeout(() =>
                 this.setState(
-                    { messages: arr }
+                    {
+                        messages: arr,
+                        messageCounter: newCounter
+                    }
                 ), 1000
             );
+        } else {
+            return null;
+        }
     }
 
     renderMessage = (message) =>
