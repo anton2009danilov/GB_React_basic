@@ -23,7 +23,7 @@ class MessageField extends React.Component {
     handleWriteMessage = (e) => this.setState({ newMessage: e.target.value })
     handleWriteName = (e) => this.setState({ newUserName: e.target.value })
 
-    addMessage = () => {
+    handleAddMessage = () => {
         const arr = [...this.state.messages]
         const id = arr[arr.length - 1].id + 1
 
@@ -32,6 +32,7 @@ class MessageField extends React.Component {
             text: this.state.newMessage,
             userName: this.state.newUserName,
         })
+
         this.setState({ messages: arr })
     }
 
@@ -95,7 +96,7 @@ class MessageField extends React.Component {
                         onChange={this.handleWriteMessage}
                     />
 
-                    <button className="mt-2" onClick={this.addMessage}>
+                    <button className="mt-2" onClick={this.handleAddMessage}>
                         Отправить
                     </button>
                 </div>
