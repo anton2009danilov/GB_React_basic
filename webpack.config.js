@@ -13,7 +13,8 @@ module.exports = {
     resolve: {
         modules: [`${__dirname}/static_src`, 'node_modules'],
         extensions: ['.js', '.jsx'],
-     },
+    },
+    devtool: "source-map",
 
     module: {
         rules: [{
