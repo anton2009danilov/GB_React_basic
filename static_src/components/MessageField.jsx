@@ -79,7 +79,7 @@ class MessageField extends React.Component {
       <div className="container">
         {messageElements}
 
-        <div className="d-flex flex-column card p-3">
+        <div className="d-flex flex-column card p-3 input_block">
           <label htmlFor="newText">Введите имя пользователя</label>
           <input
             type="text"
