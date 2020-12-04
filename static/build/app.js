@@ -70,7 +70,6 @@ var MessageComponent = /*#__PURE__*/function (_React$Component) {
 MessageComponent.propTypes = {
   text: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired)
 };
-;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageComponent);
 
 /***/ }),
@@ -147,15 +146,15 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       messages: [{
         id: 1,
-        text: 'Привет',
-        userName: 'Donald'
+        text: "Привет",
+        userName: "Donald"
       }, {
         id: 2,
-        text: 'Как дела?',
-        userName: 'Vova'
+        text: "Как дела?",
+        userName: "Vova"
       }],
-      newMessage: '',
-      newUserName: '',
+      newMessage: "",
+      newUserName: "",
       messageCounter: 2
     };
 
@@ -172,8 +171,6 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleAddMessage = function () {
-      debugger;
-
       var arr = _toConsumableArray(_this.state.messages);
 
       var id = arr[arr.length - 1].id + 1;
@@ -208,7 +205,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
       var lastMessage = arr[arr.length - 1];
       var newId = lastMessage.id + 1;
-      var userName = lastMessage.userName ? lastMessage.userName : 'Аноним';
+      var userName = lastMessage.userName ? lastMessage.userName : "Аноним";
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
       var newCounter = arr.length + 1;
 
@@ -216,7 +213,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         arr.push({
           id: newId,
           text: robotText,
-          userName: 'Робот'
+          userName: "Робот"
         });
         setTimeout(function () {
           return _this2.setState({
