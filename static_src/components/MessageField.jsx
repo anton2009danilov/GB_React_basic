@@ -18,24 +18,49 @@ class MessageField extends React.Component {
     ],
     newMessage: "",
     newUserName: "",
-    messageCounter: 2,
+    messageCounter: undefined,
   };
 
   handleWriteMessage = (e) => this.setState({ newMessage: e.target.value });
   handleWriteName = (e) => this.setState({ newUserName: e.target.value });
 
   handleAddMessage = () => {
-    const arr = [...this.state.messages];
-    const id = arr[arr.length - 1].id + 1;
-
-    arr.push({
-      id: id,
-      text: this.state.newMessage,
-      userName: this.state.newUserName,
+    this.setState((state) => {
+      return {
+        messages: [
+          ...state.messages,
+          {
+            id: state.messages[state.messages.length - 1].id + 1,
+            text: this.state.newMessage,
+            userName: this.state.newUserName,
+          },
+        ],
+      };
     });
-
-    this.setState({ messages: arr });
   };
+
+  handleKeyUp = (event) => {
+    console.log(event.keyCode);
+    if (event.keyCode === 13) {
+      //Enter
+      this.setState((state) => {
+        return {
+          messages: [
+            ...state.messages,
+            {
+              id: state.messages[state.messages.length - 1].id + 1,
+              text: this.state.newMessage,
+              userName: this.state.newUserName,
+            },
+          ],
+        };
+      });
+    }
+  };
+
+  componentDidMount() {
+    this.setState({ messageCounter: this.state.messages.length });
+  }
 
   componentDidUpdate() {
     const arr = [...this.state.messages];
@@ -51,7 +76,7 @@ class MessageField extends React.Component {
               messages: [
                 ...state.messages,
                 {
-                  id: state.messages.length + 1,
+                  id: state.messages[state.messages.length - 1].id + 1,
                   text: robotText,
                   userName: "Робот",
                 },
@@ -96,6 +121,7 @@ class MessageField extends React.Component {
             id="name"
             value={this.state.value}
             onChange={this.handleWriteMessage}
+            onKeyUp={(event) => this.handleKeyUp(event)}
           />
 
           <button className="mt-2" onClick={this.handleAddMessage}>

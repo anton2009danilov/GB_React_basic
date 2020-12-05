@@ -157,7 +157,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       }],
       newMessage: "",
       newUserName: "",
-      messageCounter: 2
+      messageCounter: undefined
     };
 
     _this.handleWriteMessage = function (e) {
@@ -173,18 +173,32 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleAddMessage = function () {
-      var arr = _toConsumableArray(_this.state.messages);
-
-      var id = arr[arr.length - 1].id + 1;
-      arr.push({
-        id: id,
-        text: _this.state.newMessage,
-        userName: _this.state.newUserName
+      _this.setState(function (state) {
+        return {
+          messages: [].concat(_toConsumableArray(state.messages), [{
+            id: state.messages[state.messages.length - 1].id + 1,
+            text: _this.state.newMessage,
+            userName: _this.state.newUserName
+          }])
+        };
       });
+    };
 
-      _this.setState({
-        messages: arr
-      });
+    _this.handleKeyUp = function (event) {
+      console.log(event.keyCode);
+
+      if (event.keyCode === 13) {
+        //Enter
+        _this.setState(function (state) {
+          return {
+            messages: [].concat(_toConsumableArray(state.messages), [{
+              id: state.messages[state.messages.length - 1].id + 1,
+              text: _this.state.newMessage,
+              userName: _this.state.newUserName
+            }])
+          };
+        });
+      }
     };
 
     _this.renderMessage = function (message) {
@@ -199,6 +213,13 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MessageField, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        messageCounter: this.state.messages.length
+      });
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var _this2 = this;
@@ -214,7 +235,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
           return _this2.setState(function (state) {
             return {
               messages: [].concat(_toConsumableArray(state.messages), [{
-                id: state.messages.length + 1,
+                id: state.messages[state.messages.length - 1].id + 1,
                 text: robotText,
                 userName: "Робот"
               }]),
@@ -229,6 +250,8 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var messageElements = this.state.messages.map(this.renderMessage);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "container"
@@ -247,7 +270,10 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         type: "text",
         id: "name",
         value: this.state.value,
-        onChange: this.handleWriteMessage
+        onChange: this.handleWriteMessage,
+        onKeyUp: function onKeyUp(event) {
+          return _this3.handleKeyUp(event);
+        }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         className: "mt-2",
         onClick: this.handleAddMessage
