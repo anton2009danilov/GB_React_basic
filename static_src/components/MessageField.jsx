@@ -40,23 +40,24 @@ class MessageField extends React.Component {
   componentDidUpdate() {
     const arr = [...this.state.messages];
     const lastMessage = arr[arr.length - 1];
-    const newId = lastMessage.id + 1;
     const userName = lastMessage.userName ? lastMessage.userName : "Аноним";
     const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
-    const newCounter = arr.length + 1;
 
     if (this.state.messageCounter === arr.length - 1) {
-      arr.push({
-        id: newId,
-        text: robotText,
-        userName: "Робот",
-      });
-
       setTimeout(
         () =>
-          this.setState({
-            messages: arr,
-            messageCounter: newCounter,
+          this.setState((state) => {
+            return {
+              messages: [
+                ...state.messages,
+                {
+                  id: state.messages.length + 1,
+                  text: robotText,
+                  userName: "Робот",
+                },
+              ],
+              messageCounter: state.messages.length + 1,
+            };
           }),
         1000
       );

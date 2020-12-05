@@ -4,6 +4,7 @@ p {
 
 .input_block {
   max-width: 500px;
+  margin: auto;
 }
 
 .message-field {

@@ -206,21 +206,20 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       var arr = _toConsumableArray(this.state.messages);
 
       var lastMessage = arr[arr.length - 1];
-      var newId = lastMessage.id + 1;
       var userName = lastMessage.userName ? lastMessage.userName : "Аноним";
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
-      var newCounter = arr.length + 1;
 
       if (this.state.messageCounter === arr.length - 1) {
-        arr.push({
-          id: newId,
-          text: robotText,
-          userName: "Робот"
-        });
         setTimeout(function () {
-          return _this2.setState({
-            messages: arr,
-            messageCounter: newCounter
+          return _this2.setState(function (state) {
+            return {
+              messages: [].concat(_toConsumableArray(state.messages), [{
+                id: state.messages.length + 1,
+                text: robotText,
+                userName: "Робот"
+              }]),
+              messageCounter: state.messages.length + 1
+            };
           });
         }, 1000);
       } else {
@@ -309,7 +308,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n}\r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,2BAA2B;EAC3B,qBAAqB;AACvB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n}\r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;EACE,2BAA2B;EAC3B,qBAAqB;AACvB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
