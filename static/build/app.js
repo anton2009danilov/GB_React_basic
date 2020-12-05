@@ -160,44 +160,40 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       messageCounter: undefined
     };
 
-    _this.handleWriteMessage = function (e) {
+    _this.handleChangeText = function (e) {
       return _this.setState({
         newMessage: e.target.value
       });
     };
 
-    _this.handleWriteName = function (e) {
+    _this.handleChangeName = function (e) {
       return _this.setState({
         newUserName: e.target.value
       });
     };
 
-    _this.handleAddMessage = function () {
+    _this.sendMessage = function (message) {
       _this.setState(function (state) {
         return {
           messages: [].concat(_toConsumableArray(state.messages), [{
             id: state.messages[state.messages.length - 1].id + 1,
-            text: _this.state.newMessage,
+            text: message,
             userName: _this.state.newUserName
           }])
         };
       });
     };
 
-    _this.handleKeyUp = function (event) {
+    _this.handleClick = function (message) {
+      _this.sendMessage(message);
+    };
+
+    _this.handleKeyUp = function (event, message) {
       console.log(event.keyCode);
 
       if (event.keyCode === 13) {
         //Enter
-        _this.setState(function (state) {
-          return {
-            messages: [].concat(_toConsumableArray(state.messages), [{
-              id: state.messages[state.messages.length - 1].id + 1,
-              text: _this.state.newMessage,
-              userName: _this.state.newUserName
-            }])
-          };
-        });
+        _this.sendMessage(message);
       }
     };
 
@@ -263,20 +259,22 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         type: "text",
         id: "newText",
         value: this.state.value,
-        onChange: this.handleWriteName
+        onChange: this.handleChangeName
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
         htmlFor: "name"
       }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         id: "name",
         value: this.state.value,
-        onChange: this.handleWriteMessage,
+        onChange: this.handleChangeText,
         onKeyUp: function onKeyUp(event) {
-          return _this3.handleKeyUp(event);
+          return _this3.handleKeyUp(event, _this3.state.newMessage);
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         className: "mt-2",
-        onClick: this.handleAddMessage
+        onClick: function onClick() {
+          return _this3.handleClick(_this3.state.newMessage);
+        }
       }, "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C")));
     }
   }]);

@@ -21,17 +21,17 @@ class MessageField extends React.Component {
     messageCounter: undefined,
   };
 
-  handleWriteMessage = (e) => this.setState({ newMessage: e.target.value });
-  handleWriteName = (e) => this.setState({ newUserName: e.target.value });
+  handleChangeText = (e) => this.setState({ newMessage: e.target.value });
+  handleChangeName = (e) => this.setState({ newUserName: e.target.value });
 
-  handleAddMessage = () => {
+  sendMessage = (message) => {
     this.setState((state) => {
       return {
         messages: [
           ...state.messages,
           {
             id: state.messages[state.messages.length - 1].id + 1,
-            text: this.state.newMessage,
+            text: message,
             userName: this.state.newUserName,
           },
         ],
@@ -39,22 +39,15 @@ class MessageField extends React.Component {
     });
   };
 
-  handleKeyUp = (event) => {
+  handleClick = (message) => {
+    this.sendMessage(message);
+  };
+
+  handleKeyUp = (event, message) => {
     console.log(event.keyCode);
     if (event.keyCode === 13) {
       //Enter
-      this.setState((state) => {
-        return {
-          messages: [
-            ...state.messages,
-            {
-              id: state.messages[state.messages.length - 1].id + 1,
-              text: this.state.newMessage,
-              userName: this.state.newUserName,
-            },
-          ],
-        };
-      });
+      this.sendMessage(message);
     }
   };
 
@@ -112,7 +105,7 @@ class MessageField extends React.Component {
             type="text"
             id="newText"
             value={this.state.value}
-            onChange={this.handleWriteName}
+            onChange={this.handleChangeName}
           />
 
           <label htmlFor="name">Введите сообщение</label>
@@ -120,11 +113,14 @@ class MessageField extends React.Component {
             type="text"
             id="name"
             value={this.state.value}
-            onChange={this.handleWriteMessage}
-            onKeyUp={(event) => this.handleKeyUp(event)}
+            onChange={this.handleChangeText}
+            onKeyUp={(event) => this.handleKeyUp(event, this.state.newMessage)}
           />
 
-          <button className="mt-2" onClick={this.handleAddMessage}>
+          <button
+            className="mt-2"
+            onClick={() => this.handleClick(this.state.newMessage)}
+          >
             Отправить
           </button>
         </div>
