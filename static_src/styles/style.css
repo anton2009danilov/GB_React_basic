@@ -1,0 +1,12 @@
+p {
+  margin: 0;
+}
+
+.input_block {
+  max-width: 500px;
+}
+
+.message-field {
+  background-color: lightblue;
+  padding: 0 0 5px 15px;
+}

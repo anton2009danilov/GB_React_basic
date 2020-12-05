@@ -1,5 +1,6 @@
 import React from "react";
 import MessageComponent from "./MessageComponent";
+import "../styles/style.css";
 
 class MessageField extends React.Component {
   state = {
