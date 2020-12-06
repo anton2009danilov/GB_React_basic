@@ -294,6 +294,68 @@ module.exports = _typeof;
 
 /***/ }),
 
+/***/ "./components/Header.jsx":
+/*!*******************************!*\
+  !*** ./components/Header.jsx ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ Header
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+function Header() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "header d-flex align-items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "container d-flex align-items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: "./img/logo.png",
+    alt: "",
+    className: "logo"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Broken Chat")));
+}
+
+/***/ }),
+
+/***/ "./components/Layout.jsx":
+/*!*******************************!*\
+  !*** ./components/Layout.jsx ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ Layout
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var _MessageField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MessageField */ "./components/MessageField.jsx");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ "./components/Header.jsx");
+
+
+
+function Layout() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MessageField__WEBPACK_IMPORTED_MODULE_1__.default, null))));
+}
+
+/***/ }),
+
 /***/ "./components/Message.jsx":
 /*!********************************!*\
   !*** ./components/Message.jsx ***!
@@ -548,7 +610,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
       var messageElements = this.state.messages.map(this.renderMessage);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "container"
+        className: "d-flex flex-column col-xs-12 col-sm-9"
       }, messageElements, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "d-flex flex-column card p-3 input_block"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_2__.TextField, {
@@ -599,13 +661,14 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "../node_modules/react-dom/index.js");
-/* harmony import */ var _components_MessageField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/MessageField */ "./components/MessageField.jsx");
+/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Layout */ "./components/Layout.jsx");
 /* harmony import */ var material_ui_styles_MuiThemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ "../node_modules/material-ui/styles/MuiThemeProvider.js");
 
 
+ // import MessageField from "./components/MessageField";
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui_styles_MuiThemeProvider__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_MessageField__WEBPACK_IMPORTED_MODULE_2__.default, null)), document.getElementById("root"));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui_styles_MuiThemeProvider__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Layout__WEBPACK_IMPORTED_MODULE_2__.default, null)), document.getElementById("root"));
 
 /***/ }),
 
@@ -4330,7 +4393,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;GACG,qBAAqB;GACrB,gBAAgB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,2BAA2B;EAC3B,wBAAwB;EACxB,gBAAgB;EAChB,kBAAkB;AACpB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 80%;\r\n  width: 100%;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n\r\n.header {\r\n  background-color: #17a2b8;\r\n  margin-bottom: 10px;\r\n  height: 60px;\r\n  color: white;\r\n  \r\n}\r\n\r\n.logo {\r\n  width: 50px;\r\n  height: 50px;\r\n  background-color: #17a2b8;\r\n  padding: 2px;\r\n  margin-right: 15px;\r\n  border-radius: 6px;\r\n}", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,cAAc;EACd,WAAW;AACb;;AAEA;GACG,qBAAqB;GACrB,gBAAgB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,2BAA2B;EAC3B,wBAAwB;EACxB,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,yBAAyB;EACzB,mBAAmB;EACnB,YAAY;EACZ,YAAY;;AAEd;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,yBAAyB;EACzB,YAAY;EACZ,kBAAkB;EAClB,kBAAkB;AACpB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 80%;\r\n  width: 100%;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n\r\n.header {\r\n  background-color: #17a2b8;\r\n  margin-bottom: 10px;\r\n  height: 60px;\r\n  color: white;\r\n  \r\n}\r\n\r\n.logo {\r\n  width: 50px;\r\n  height: 50px;\r\n  background-color: #17a2b8;\r\n  padding: 2px;\r\n  margin-right: 15px;\r\n  border-radius: 6px;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

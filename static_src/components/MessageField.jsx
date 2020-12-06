@@ -97,7 +97,7 @@ class MessageField extends React.Component {
     const messageElements = this.state.messages.map(this.renderMessage);
 
     return (
-      <div className="container">
+      <div className="d-flex flex-column col-xs-12 col-sm-9">
         {messageElements}
 
         <div className="d-flex flex-column card p-3 input_block">
