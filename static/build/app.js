@@ -106,6 +106,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -160,16 +162,8 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       messageCounter: undefined
     };
 
-    _this.handleChangeText = function (e) {
-      return _this.setState({
-        newMessage: e.target.value
-      });
-    };
-
-    _this.handleChangeName = function (e) {
-      return _this.setState({
-        newUserName: e.target.value
-      });
+    _this.handleChange = function (e) {
+      return _this.setState(_defineProperty({}, e.target.name, e.target.value));
     };
 
     _this.sendMessage = function (message) {
@@ -179,7 +173,8 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
             id: state.messages[state.messages.length - 1].id + 1,
             text: message,
             userName: _this.state.newUserName
-          }])
+          }]),
+          newMessage: ""
         };
       });
     };
@@ -189,8 +184,6 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleKeyUp = function (event, message) {
-      console.log(event.keyCode);
-
       if (event.keyCode === 13) {
         //Enter
         _this.sendMessage(message);
@@ -229,7 +222,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       if (this.state.messageCounter === arr.length - 1) {
         setTimeout(function () {
           return _this2.setState(function (state) {
-            return {
+            if (state.messages[state.messages.length - 1].userName !== "Робот") return {
               messages: [].concat(_toConsumableArray(state.messages), [{
                 id: state.messages[state.messages.length - 1].id + 1,
                 text: robotText,
@@ -257,16 +250,16 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         htmlFor: "newText"
       }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u044F \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        id: "newText",
-        value: this.state.value,
-        onChange: this.handleChangeName
+        name: "newUserName",
+        value: this.state.newUserName,
+        onChange: this.handleChange
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
         htmlFor: "name"
       }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        id: "name",
-        value: this.state.value,
-        onChange: this.handleChangeText,
+        name: "newMessage",
+        value: this.state.newMessage,
+        onChange: this.handleChange,
         onKeyUp: function onKeyUp(event) {
           return _this3.handleKeyUp(event, _this3.state.newMessage);
         }

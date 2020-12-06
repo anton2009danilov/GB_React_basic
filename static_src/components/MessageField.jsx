@@ -21,8 +21,9 @@ class MessageField extends React.Component {
     messageCounter: undefined,
   };
 
-  handleChangeText = (e) => this.setState({ newMessage: e.target.value });
-  handleChangeName = (e) => this.setState({ newUserName: e.target.value });
+  // handleChangeText = (e) => this.setState({ newMessage: e.target.value });
+  // handleChangeName = (e) => this.setState({ newUserName: e.target.value });
+  handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   sendMessage = (message) => {
     this.setState((state) => {
@@ -35,6 +36,7 @@ class MessageField extends React.Component {
             userName: this.state.newUserName,
           },
         ],
+        newMessage: "",
       };
     });
   };
@@ -44,7 +46,6 @@ class MessageField extends React.Component {
   };
 
   handleKeyUp = (event, message) => {
-    console.log(event.keyCode);
     if (event.keyCode === 13) {
       //Enter
       this.sendMessage(message);
@@ -65,17 +66,18 @@ class MessageField extends React.Component {
       setTimeout(
         () =>
           this.setState((state) => {
-            return {
-              messages: [
-                ...state.messages,
-                {
-                  id: state.messages[state.messages.length - 1].id + 1,
-                  text: robotText,
-                  userName: "Робот",
-                },
-              ],
-              messageCounter: state.messages.length + 1,
-            };
+            if (state.messages[state.messages.length - 1].userName !== "Робот")
+              return {
+                messages: [
+                  ...state.messages,
+                  {
+                    id: state.messages[state.messages.length - 1].id + 1,
+                    text: robotText,
+                    userName: "Робот",
+                  },
+                ],
+                messageCounter: state.messages.length + 1,
+              };
           }),
         1000
       );
@@ -103,17 +105,17 @@ class MessageField extends React.Component {
           <label htmlFor="newText">Введите имя пользователя</label>
           <input
             type="text"
-            id="newText"
-            value={this.state.value}
-            onChange={this.handleChangeName}
+            name="newUserName"
+            value={this.state.newUserName}
+            onChange={this.handleChange}
           />
 
           <label htmlFor="name">Введите сообщение</label>
           <input
             type="text"
-            id="name"
-            value={this.state.value}
-            onChange={this.handleChangeText}
+            name="newMessage"
+            value={this.state.newMessage}
+            onChange={this.handleChange}
             onKeyUp={(event) => this.handleKeyUp(event, this.state.newMessage)}
           />
 
