@@ -161,6 +161,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       newUserName: "",
       messageCounter: undefined
     };
+    _this.textInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
 
     _this.handleChange = function (e) {
       return _this.setState(_defineProperty({}, e.target.name, e.target.value));
@@ -207,6 +208,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       this.setState({
         messageCounter: this.state.messages.length
       });
+      this.textInput.current.focus();
     }
   }, {
     key: "componentDidUpdate",
@@ -262,9 +264,10 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleChange,
         onKeyUp: function onKeyUp(event) {
           return _this3.handleKeyUp(event, _this3.state.newMessage);
-        }
+        },
+        ref: this.textInput
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        className: "mt-2",
+        className: "mt-2 btn btn-primary",
         onClick: function onClick() {
           return _this3.handleClick(_this3.state.newMessage);
         }

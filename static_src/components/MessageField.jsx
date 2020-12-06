@@ -21,8 +21,8 @@ class MessageField extends React.Component {
     messageCounter: undefined,
   };
 
-  // handleChangeText = (e) => this.setState({ newMessage: e.target.value });
-  // handleChangeName = (e) => this.setState({ newUserName: e.target.value });
+  textInput = React.createRef();
+
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   sendMessage = (message) => {
@@ -54,6 +54,7 @@ class MessageField extends React.Component {
 
   componentDidMount() {
     this.setState({ messageCounter: this.state.messages.length });
+    this.textInput.current.focus();
   }
 
   componentDidUpdate() {
@@ -117,10 +118,11 @@ class MessageField extends React.Component {
             value={this.state.newMessage}
             onChange={this.handleChange}
             onKeyUp={(event) => this.handleKeyUp(event, this.state.newMessage)}
+            ref={this.textInput}
           />
 
           <button
-            className="mt-2"
+            className="mt-2 btn btn-primary"
             onClick={() => this.handleClick(this.state.newMessage)}
           >
             Отправить
