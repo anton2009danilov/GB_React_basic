@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class MessageComponent extends React.Component {
+class Message extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
   };
@@ -16,4 +16,4 @@ class MessageComponent extends React.Component {
   }
 }
 
-export default MessageComponent;
+export default Message;

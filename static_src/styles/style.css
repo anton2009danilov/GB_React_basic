@@ -7,6 +7,11 @@ p {
   margin: auto;
 }
 
+.input {
+   width: 85% !important;
+   min-width: 130px;
+} 
+
 .message-field {
   background-color: lightblue;
   padding: 0 0 5px 15px;

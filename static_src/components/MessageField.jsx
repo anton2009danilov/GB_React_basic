@@ -1,5 +1,7 @@
 import React from "react";
-import MessageComponent from "./MessageComponent";
+import Message from "./Message";
+import { TextField, FloatingActionButton } from "material-ui";
+import SendIcon from "material-ui/svg-icons/content/send";
 import "../styles/style.css";
 
 class MessageField extends React.Component {
@@ -88,11 +90,7 @@ class MessageField extends React.Component {
   }
 
   renderMessage = (message) => (
-    <MessageComponent
-      text={message.text}
-      userName={message.userName}
-      key={message.id}
-    />
+    <Message text={message.text} userName={message.userName} key={message.id} />
   );
 
   render() {
@@ -103,17 +101,17 @@ class MessageField extends React.Component {
         {messageElements}
 
         <div className="d-flex flex-column card p-3 input_block">
-          <label htmlFor="newText">Введите имя пользователя</label>
-          <input
-            type="text"
+          <TextField
+            className="input"
+            hintText="Введите имя пользователя"
             name="newUserName"
             value={this.state.newUserName}
             onChange={this.handleChange}
           />
 
-          <label htmlFor="name">Введите сообщение</label>
-          <input
-            type="text"
+          <TextField
+            className="input"
+            hintText="Введите сообщение"
             name="newMessage"
             value={this.state.newMessage}
             onChange={this.handleChange}
@@ -121,12 +119,12 @@ class MessageField extends React.Component {
             ref={this.textInput}
           />
 
-          <button
-            className="mt-2 btn btn-primary"
+          <FloatingActionButton
+            style={{ width: 56, margin: "auto" }}
             onClick={() => this.handleClick(this.state.newMessage)}
           >
-            Отправить
-          </button>
+            <SendIcon />
+          </FloatingActionButton>
         </div>
       </div>
     );
