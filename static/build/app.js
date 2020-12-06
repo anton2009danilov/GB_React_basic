@@ -352,7 +352,13 @@ var Message = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "border-top mb-2 message-field"
+        className: "border-top mb-2 message-field",
+        style: this.props.userName === "Робот" ? {
+          alignItems: "flex-end",
+          marginLeft: "20%"
+        } : {
+          marginRight: "20%"
+        }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, this.props.userName ? this.props.userName : "Аноним"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, this.props.text));
     }
   }]);
@@ -4324,7 +4330,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;GACG,qBAAqB;GACrB,gBAAgB;AACnB;;AAEA;EACE,2BAA2B;EAC3B,qBAAqB;AACvB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  background-color: lightblue;\r\n  padding: 0 0 5px 15px;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./styles/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;AACX;;AAEA;EACE,gBAAgB;EAChB,YAAY;AACd;;AAEA;GACG,qBAAqB;GACrB,gBAAgB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,2BAA2B;EAC3B,wBAAwB;EACxB,gBAAgB;EAChB,kBAAkB;AACpB","sourcesContent":["p {\r\n  margin: 0;\r\n}\r\n\r\n.input_block {\r\n  max-width: 500px;\r\n  margin: auto;\r\n}\r\n\r\n.input {\r\n   width: 85% !important;\r\n   min-width: 130px;\r\n} \r\n\r\n.message-field {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background-color: lightblue;\r\n  padding: 0 15px 5px 15px;\r\n  min-width: 150px;\r\n  border-radius: 8px;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

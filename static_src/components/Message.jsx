@@ -8,7 +8,14 @@ class Message extends React.Component {
 
   render() {
     return (
-      <div className="border-top mb-2 message-field">
+      <div
+        className="border-top mb-2 message-field"
+        style={
+          this.props.userName === "Робот"
+            ? { alignItems: "flex-end", marginLeft: "20%" }
+            : { marginRight: "20%" }
+        }
+      >
         <h4>{this.props.userName ? this.props.userName : "Аноним"}</h4>
         <p>{this.props.text}</p>
       </div>
