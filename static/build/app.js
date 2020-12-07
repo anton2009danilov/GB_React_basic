@@ -5318,9 +5318,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! material-ui */ "../node_modules/material-ui/index.es.js");
-/* harmony import */ var _material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/Chat */ "../node_modules/@material-ui/icons/Chat.js");
-/* harmony import */ var material_ui_svg_icons_content_inbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! material-ui/svg-icons/content/inbox */ "../node_modules/material-ui/svg-icons/content/inbox.js");
-
+/* harmony import */ var _material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/icons/Chat */ "../node_modules/@material-ui/icons/Chat.js");
 
 
  // import Chat from "@material-ui/icons/Chat";
@@ -5330,25 +5328,22 @@ function ChatList() {
     className: "col-sm-4 p-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.List, {
     style: {
-      backgroundColor: "lavender"
+      backgroundColor: 'lavender'
     },
     className: "d-flex flex-sm-row flex-wrap flex-lg-column mb-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
     primaryText: "Chat 1",
-    onClick: function onClick() {
-      return console.log("click");
-    },
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
+    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_2__.default, {
       color: "primary"
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
     primaryText: "Chat 2",
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
+    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_2__.default, {
       color: "primary"
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
     primaryText: "Chat 3",
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
+    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_2__.default, {
       color: "primary"
     })
   })));
@@ -5479,13 +5474,13 @@ var Message = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "border-top mb-2 message-field",
-        style: this.props.userName === "Робот" ? {
-          alignItems: "flex-end",
-          marginLeft: "20%"
+        style: this.props.userName === 'Робот' ? {
+          alignItems: 'flex-end',
+          marginLeft: '20%'
         } : {
-          marginRight: "20%"
+          marginRight: '20%'
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, this.props.userName ? this.props.userName : "Аноним"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, this.props.text));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, this.props.userName || 'Аноним'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, this.props.text));
     }
   }]);
 
@@ -5579,18 +5574,18 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       messages: [{
         id: 1,
-        text: "Привет",
-        userName: "Donald"
+        text: 'Привет',
+        userName: 'Donald'
       }, {
         id: 2,
-        text: "Как дела?",
-        userName: "Vova"
+        text: 'Как дела?',
+        userName: 'Vova'
       }],
-      newMessage: "",
-      newUserName: "",
-      messageCounter: undefined
+      newMessage: '',
+      newUserName: ''
     };
     _this.textInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    _this.robotTimer = null;
 
     _this.handleChange = function (e) {
       return _this.setState(_defineProperty({}, e.target.name, e.target.value));
@@ -5604,7 +5599,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
             text: message,
             userName: _this.state.newUserName
           }]),
-          newMessage: ""
+          newMessage: ''
         };
       });
     };
@@ -5634,10 +5629,13 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
   _createClass(MessageField, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({
-        messageCounter: this.state.messages.length
-      });
       this.textInput.current.focus();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      console.log('unmounted');
+      clearTimeout(this.robotTimer);
     }
   }, {
     key: "componentDidUpdate",
@@ -5647,25 +5645,19 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       var arr = _toConsumableArray(this.state.messages);
 
       var lastMessage = arr[arr.length - 1];
-      var userName = lastMessage.userName ? lastMessage.userName : "Аноним";
+      var userName = lastMessage.userName || 'Аноним';
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
-
-      if (this.state.messageCounter === arr.length - 1) {
-        setTimeout(function () {
-          return _this2.setState(function (state) {
-            if (state.messages[state.messages.length - 1].userName !== "Робот") return {
-              messages: [].concat(_toConsumableArray(state.messages), [{
-                id: state.messages[state.messages.length - 1].id + 1,
-                text: robotText,
-                userName: "Робот"
-              }]),
-              messageCounter: state.messages.length + 1
-            };
-          });
-        }, 1000);
-      } else {
-        return null;
-      }
+      this.robotTimer = setTimeout(function () {
+        return _this2.setState(function (state) {
+          if (state.messages[state.messages.length - 1].userName !== 'Робот') return {
+            messages: [].concat(_toConsumableArray(state.messages), [{
+              id: state.messages[state.messages.length - 1].id + 1,
+              text: robotText,
+              userName: 'Робот'
+            }])
+          };
+        });
+      }, 1000);
     }
   }, {
     key: "render",
@@ -5696,7 +5688,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_2__.FloatingActionButton, {
         style: {
           width: 56,
-          margin: "auto"
+          margin: 'auto'
         },
         onClick: function onClick() {
           return _this3.handleClick(_this3.state.newMessage);
@@ -5732,7 +5724,7 @@ __webpack_require__.r(__webpack_exports__);
  // import MessageField from "./components/MessageField";
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui_styles_MuiThemeProvider__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Layout__WEBPACK_IMPORTED_MODULE_2__.default, null)), document.getElementById("root"));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui_styles_MuiThemeProvider__WEBPACK_IMPORTED_MODULE_3__.default, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Layout__WEBPACK_IMPORTED_MODULE_2__.default, null)), document.getElementById('root'));
 
 /***/ }),
 
@@ -50602,53 +50594,6 @@ ActionCheckCircle.displayName = 'ActionCheckCircle';
 ActionCheckCircle.muiName = 'SvgIcon';
 
 exports.default = ActionCheckCircle;
-
-/***/ }),
-
-/***/ "../node_modules/material-ui/svg-icons/content/inbox.js":
-/*!**************************************************************!*\
-  !*** ../node_modules/material-ui/svg-icons/content/inbox.js ***!
-  \**************************************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(/*! recompose/pure */ "../node_modules/recompose/pure.js");
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ "../node_modules/material-ui/SvgIcon/index.js");
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ContentInbox = function ContentInbox(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z' })
-  );
-};
-ContentInbox = (0, _pure2.default)(ContentInbox);
-ContentInbox.displayName = 'ContentInbox';
-ContentInbox.muiName = 'SvgIcon';
-
-exports.default = ContentInbox;
 
 /***/ }),
 
