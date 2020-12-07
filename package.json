@@ -3,15 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "semi": "error"
+    }
+  },
   "scripts": {
     "start": "webpack --mode development",
-    "server": "webpack-dev-server"
+    "server": "webpack-dev-server",
+    "watch": "webpack --watch"
   },
   "author": "Anton Danilov",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.12.8",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-react": "^7.12.7",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "webpack-dev-server": "^3.11.0"
@@ -19,7 +35,10 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "eslint": "^7.14.0",
+    "prettier": "2.2.1",
     "webpack": "^5.9.0",
     "webpack-cli": "^3.3.12"
   }
