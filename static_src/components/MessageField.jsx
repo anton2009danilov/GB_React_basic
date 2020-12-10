@@ -40,18 +40,18 @@ class MessageField extends React.Component {
 
     sendMessage = (message) => {
         this.setState((state) => {
-            const messageId = state.messages[state.messages.length - 1].id + 1;
+            const { messages } = state;
+            const keys = Object.keys(messages);
+            const messageId = keys[keys.length - 1] + 1;
             return {
-                messages: [
-                    ...state.messages,
-                    {
-                        messageId: {
-                            id: messageId,
-                            text: message,
-                            userName: this.state.newUserName,
-                        },
+                messages: {
+                    ...messages,
+                    [messageId]: {
+                        id: messageId,
+                        text: message,
+                        userName: this.state.newUserName,
                     },
-                ],
+                },
                 newMessage: '',
             };
         });
@@ -87,24 +87,26 @@ class MessageField extends React.Component {
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
-                    const messages = [...Object.values(state.messages)];
+                    const { messages } = state;
+                    const keys = Object.keys(messages);
+                    const messageId = keys[keys.length - 1] + 1;
+                    console.log(
+                        Object.values(messages)[keys.length - 1].userName
+                    );
+
                     if (
-                        messages[messages.length - 1].userName !== 'Робот'
-                        // state.messages[state.messages.length - 1].userName !==
-                        // 'Робот'
+                        Object.values(messages)[keys.length - 1].userName !==
+                        'Робот'
                     )
                         return {
-                            messages: [
-                                ...state.messages,
-                                {
-                                    id:
-                                        state.messages[
-                                            state.messages.length - 1
-                                        ].id + 1,
+                            messages: {
+                                ...messages,
+                                [messageId]: {
+                                    id: messageId,
                                     text: robotText,
                                     userName: 'Робот',
                                 },
-                            ],
+                            },
                         };
                 }),
             1000

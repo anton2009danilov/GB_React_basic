@@ -5644,6 +5644,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5727,15 +5731,15 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
     _this.sendMessage = function (message) {
       _this.setState(function (state) {
-        var messageId = state.messages[state.messages.length - 1].id + 1;
+        var messages = state.messages;
+        var keys = Object.keys(messages);
+        var messageId = keys[keys.length - 1] + 1;
         return {
-          messages: [].concat(_toConsumableArray(state.messages), [{
-            messageId: {
-              id: messageId,
-              text: message,
-              userName: _this.state.newUserName
-            }
-          }]),
+          messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
+            id: messageId,
+            text: message,
+            userName: _this.state.newUserName
+          })),
           newMessage: ''
         };
       });
@@ -5784,22 +5788,21 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       var arr = _toConsumableArray(Object.values(this.state.messages));
 
       var lastMessage = arr[arr.length - 1];
-      console.log(lastMessage);
       var userName = lastMessage.userName || 'Аноним';
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
       this.robotTimer = setTimeout(function () {
         return _this2.setState(function (state) {
-          var messages = _toConsumableArray(Object.values(state.messages));
-
-          if (messages[messages.length - 1].userName !== 'Робот' // state.messages[state.messages.length - 1].userName !==
-          // 'Робот'
-          ) return {
-              messages: [].concat(_toConsumableArray(state.messages), [{
-                id: state.messages[state.messages.length - 1].id + 1,
-                text: robotText,
-                userName: 'Робот'
-              }])
-            };
+          var messages = state.messages;
+          var keys = Object.keys(messages);
+          var messageId = keys[keys.length - 1] + 1;
+          console.log(Object.values(messages)[keys.length - 1].userName);
+          if (Object.values(messages)[keys.length - 1].userName !== 'Робот') return {
+            messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
+              id: messageId,
+              text: robotText,
+              userName: 'Робот'
+            }))
+          };
         });
       }, 1000);
     }
