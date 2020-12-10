@@ -5421,7 +5421,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "container d-flex align-items-center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-        src: "./img/logo.png",
+        src: "../img/logo.png",
         alt: "",
         className: "logo"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Broken Chat ", this.props.chatId)));
@@ -5510,7 +5510,9 @@ var Layout = /*#__PURE__*/function (_React$Component) {
         className: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatList__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MessageField__WEBPACK_IMPORTED_MODULE_3__.default, null))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatList__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MessageField__WEBPACK_IMPORTED_MODULE_3__.default, {
+        chatId: this.props.chatId
+      }))));
     }
   }]);
 
@@ -5613,7 +5615,7 @@ Message.propTypes = {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5625,7 +5627,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Message */ "./components/Message.jsx");
 /* harmony import */ var material_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! material-ui */ "../node_modules/material-ui/index.es.js");
 /* harmony import */ var material_ui_svg_icons_content_send__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! material-ui/svg-icons/content/send */ "../node_modules/material-ui/svg-icons/content/send.js");
-/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styles/style.css */ "./styles/style.css");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/style.css */ "./styles/style.css");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5668,6 +5672,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var MessageField = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageField, _React$Component);
 
@@ -5684,15 +5689,32 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
     _this.state = {
-      messages: [{
-        id: 1,
-        text: 'Привет',
-        userName: 'Donald'
-      }, {
-        id: 2,
-        text: 'Как дела?',
-        userName: 'Vova'
-      }],
+      chats: {
+        1: {
+          title: 'Чат 1',
+          messageList: [1]
+        },
+        2: {
+          title: 'Чат 2',
+          messageList: [2]
+        },
+        3: {
+          title: 'Чат 3',
+          messageList: []
+        }
+      },
+      messages: {
+        1: {
+          id: 1,
+          text: 'Привет',
+          userName: 'Робот'
+        },
+        2: {
+          id: 2,
+          text: 'Как дела?',
+          userName: 'Робот'
+        }
+      },
       newMessage: '',
       newUserName: ''
     };
@@ -5705,11 +5727,14 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
     _this.sendMessage = function (message) {
       _this.setState(function (state) {
+        var messageId = state.messages[state.messages.length - 1].id + 1;
         return {
           messages: [].concat(_toConsumableArray(state.messages), [{
-            id: state.messages[state.messages.length - 1].id + 1,
-            text: message,
-            userName: _this.state.newUserName
+            messageId: {
+              id: messageId,
+              text: message,
+              userName: _this.state.newUserName
+            }
           }]),
           newMessage: ''
         };
@@ -5754,29 +5779,37 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate() {
       var _this2 = this;
 
-      var arr = _toConsumableArray(this.state.messages);
+      console.log('updated');
+
+      var arr = _toConsumableArray(Object.values(this.state.messages));
 
       var lastMessage = arr[arr.length - 1];
+      console.log(lastMessage);
       var userName = lastMessage.userName || 'Аноним';
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
       this.robotTimer = setTimeout(function () {
         return _this2.setState(function (state) {
-          if (state.messages[state.messages.length - 1].userName !== 'Робот') return {
-            messages: [].concat(_toConsumableArray(state.messages), [{
-              id: state.messages[state.messages.length - 1].id + 1,
-              text: robotText,
-              userName: 'Робот'
-            }])
-          };
+          var messages = _toConsumableArray(Object.values(state.messages));
+
+          if (messages[messages.length - 1].userName !== 'Робот' // state.messages[state.messages.length - 1].userName !==
+          // 'Робот'
+          ) return {
+              messages: [].concat(_toConsumableArray(state.messages), [{
+                id: state.messages[state.messages.length - 1].id + 1,
+                text: robotText,
+                userName: 'Робот'
+              }])
+            };
         });
       }, 1000);
     }
   }, {
     key: "render",
+    // renderMessage = (message) => console.log(message)
     value: function render() {
       var _this3 = this;
 
-      var messageElements = this.state.messages.map(this.renderMessage);
+      var messageElements = Object.values(this.state.messages).map(this.renderMessage);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "d-flex flex-column col-xs-12 col-sm-8"
       }, messageElements, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5812,6 +5845,9 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
   return MessageField;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
+MessageField.propTypes = {
+  chatId: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number.isRequired)
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageField);
 
 /***/ }),
@@ -5880,26 +5916,10 @@ var Router = /*#__PURE__*/function (_React$Component) {
         component: _Layout__WEBPACK_IMPORTED_MODULE_1__.default
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
         exact: true,
-        path: "/chat/1/",
-        render: function render() {
+        path: "/chat/:chatId/",
+        render: function render(obj) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-            chatId: 1
-          });
-        }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
-        exact: true,
-        path: "/chat/2/",
-        render: function render() {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-            chatId: 2
-          });
-        }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
-        exact: true,
-        path: "/chat/3/",
-        render: function render() {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Layout__WEBPACK_IMPORTED_MODULE_1__.default, {
-            chatId: 3
+            chatId: Number(obj.match.params.chatId)
           });
         }
       }));

@@ -14,7 +14,7 @@ export default class Header extends React.Component {
         return (
             <div className="header d-flex align-items-center">
                 <div className="container d-flex align-items-center">
-                    <img src="./img/logo.png" alt="" className="logo" />
+                    <img src="../img/logo.png" alt="" className="logo" />
                     <h3>Broken Chat {this.props.chatId}</h3>
                 </div>
             </div>

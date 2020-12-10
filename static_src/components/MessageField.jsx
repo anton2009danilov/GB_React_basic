@@ -2,22 +2,32 @@ import React from 'react';
 import Message from './Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
+import PropTypes from 'prop-types';
 import '../styles/style.css';
 
 class MessageField extends React.Component {
+    static propTypes = {
+        chatId: PropTypes.number.isRequired,
+    }
+
     state = {
-        messages: [
-            {
+        chats: {
+            1: { title: 'Чат 1', messageList: [1] },
+            2: { title: 'Чат 2', messageList: [2] },
+            3: { title: 'Чат 3', messageList: [] },
+        },
+        messages: {
+            1: {
                 id: 1,
                 text: 'Привет',
-                userName: 'Donald',
+                userName: 'Робот',
             },
-            {
+            2: {
                 id: 2,
                 text: 'Как дела?',
-                userName: 'Vova',
+                userName: 'Робот',
             },
-        ],
+        },
         newMessage: '',
         newUserName: '',
     }
@@ -30,13 +40,16 @@ class MessageField extends React.Component {
 
     sendMessage = (message) => {
         this.setState((state) => {
+            const messageId = state.messages[state.messages.length - 1].id + 1;
             return {
                 messages: [
                     ...state.messages,
                     {
-                        id: state.messages[state.messages.length - 1].id + 1,
-                        text: message,
-                        userName: this.state.newUserName,
+                        messageId: {
+                            id: messageId,
+                            text: message,
+                            userName: this.state.newUserName,
+                        },
                     },
                 ],
                 newMessage: '',
@@ -65,7 +78,8 @@ class MessageField extends React.Component {
     }
 
     componentDidUpdate() {
-        const arr = [...this.state.messages];
+        console.log('updated');
+        const arr = [...Object.values(this.state.messages)];
         const lastMessage = arr[arr.length - 1];
         const userName = lastMessage.userName || 'Аноним';
         const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
@@ -73,9 +87,11 @@ class MessageField extends React.Component {
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
+                    const messages = [...Object.values(state.messages)];
                     if (
-                        state.messages[state.messages.length - 1].userName !==
-                        'Робот'
+                        messages[messages.length - 1].userName !== 'Робот'
+                        // state.messages[state.messages.length - 1].userName !==
+                        // 'Робот'
                     )
                         return {
                             messages: [
@@ -103,8 +119,12 @@ class MessageField extends React.Component {
         />
     )
 
+    // renderMessage = (message) => console.log(message)
+
     render() {
-        const messageElements = this.state.messages.map(this.renderMessage);
+        const messageElements = Object.values(this.state.messages).map(
+            this.renderMessage
+        );
 
         return (
             <div className="d-flex flex-column col-xs-12 col-sm-8">
