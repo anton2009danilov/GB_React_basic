@@ -133,7 +133,7 @@ class MessageField extends React.Component {
         );
     }
 
-    renderMessage = (message) => (
+    renderMessage = (message, index) => (
         <Message
             text={message.text}
             userName={message.userName}
@@ -142,8 +142,15 @@ class MessageField extends React.Component {
     )
 
     render() {
-        const messageElements = Object.values(this.state.messages).map(
-            this.renderMessage
+        // const messageElements = Object.values(this.state.messages).map(
+        //     this.renderMessage
+        // );
+
+        const { messages, chats } = this.state;
+        const { chatId } = this.props;
+
+        const messageElements = chats[chatId].messageList.map((messageId) =>
+            this.renderMessage(messages[messageId])
         );
 
         return (

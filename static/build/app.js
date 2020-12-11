@@ -5736,7 +5736,6 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         var chatId = _this.props.chatId;
         var keys = Object.keys(messages);
         var messageId = parseInt(keys[keys.length - 1]) + 1;
-        console.log(chats, chatId, messageId);
         return {
           messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
             id: messageId,
@@ -5762,7 +5761,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       }
     };
 
-    _this.renderMessage = function (message) {
+    _this.renderMessage = function (message, index) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Message__WEBPACK_IMPORTED_MODULE_1__.default, {
         text: message.text,
         userName: message.userName,
@@ -5798,27 +5797,39 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
       var robotText = "\u041D\u0435 \u043F\u0440\u0438\u0441\u0442\u0430\u0432\u0430\u0439 \u043A\u043E \u043C\u043D\u0435, ".concat(userName, "! \u042F - \u0440\u043E\u0431\u043E\u0442!");
       this.robotTimer = setTimeout(function () {
         return _this2.setState(function (state) {
-          var messages = state.messages;
+          var messages = state.messages,
+              chats = state.chats;
+          var chatId = _this2.props.chatId;
           var keys = Object.keys(messages);
           var messageId = parseInt(keys[keys.length - 1]) + 1;
-          console.log(Object.values(messages)[keys.length - 1].userName);
           if (Object.values(messages)[keys.length - 1].userName !== 'Робот') return {
             messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
               id: messageId,
               text: robotText,
               userName: 'Робот'
-            }))
+            })),
+            chats: _objectSpread(_objectSpread({}, chats), {}, _defineProperty({}, chatId, _objectSpread(_objectSpread({}, chats[chatId]), {}, {
+              messageList: [].concat(_toConsumableArray(chats[chatId]['messageList']), [messageId])
+            })))
           };
         });
       }, 1000);
     }
   }, {
     key: "render",
-    // renderMessage = (message) => console.log(message)
     value: function render() {
       var _this3 = this;
 
-      var messageElements = Object.values(this.state.messages).map(this.renderMessage);
+      // const messageElements = Object.values(this.state.messages).map(
+      //     this.renderMessage
+      // );
+      var _this$state = this.state,
+          messages = _this$state.messages,
+          chats = _this$state.chats;
+      var chatId = this.props.chatId;
+      var messageElements = chats[chatId].messageList.map(function (messageId) {
+        return _this3.renderMessage(messages[messageId]);
+      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "d-flex flex-column col-xs-12 col-sm-8"
       }, messageElements, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
