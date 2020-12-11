@@ -40,9 +40,11 @@ class MessageField extends React.Component {
 
     sendMessage = (message) => {
         this.setState((state) => {
-            const { messages } = state;
+            const { messages, chats } = state;
+            const { chatId } = this.props;
             const keys = Object.keys(messages);
-            const messageId = keys[keys.length - 1] + 1;
+            const messageId = parseInt(keys[keys.length - 1]) + 1;
+
             return {
                 messages: {
                     ...messages,
@@ -50,6 +52,16 @@ class MessageField extends React.Component {
                         id: messageId,
                         text: message,
                         userName: this.state.newUserName,
+                    },
+                },
+                chats: {
+                    ...chats,
+                    [chatId]: {
+                        ...chats[chatId],
+                        messageList: [
+                            ...chats[chatId]['messageList'],
+                            messageId,
+                        ],
                     },
                 },
                 newMessage: '',
@@ -77,7 +89,7 @@ class MessageField extends React.Component {
         clearTimeout(this.robotTimer);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevS) {
         console.log('updated');
         const arr = [...Object.values(this.state.messages)];
         const lastMessage = arr[arr.length - 1];
@@ -87,12 +99,10 @@ class MessageField extends React.Component {
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
-                    const { messages } = state;
+                    const { messages, chats } = state;
+                    const { chatId } = this.props;
                     const keys = Object.keys(messages);
-                    const messageId = keys[keys.length - 1] + 1;
-                    console.log(
-                        Object.values(messages)[keys.length - 1].userName
-                    );
+                    const messageId = parseInt(keys[keys.length - 1]) + 1;
 
                     if (
                         Object.values(messages)[keys.length - 1].userName !==
@@ -105,6 +115,16 @@ class MessageField extends React.Component {
                                     id: messageId,
                                     text: robotText,
                                     userName: 'Робот',
+                                },
+                            },
+                            chats: {
+                                ...chats,
+                                [chatId]: {
+                                    ...chats[chatId],
+                                    messageList: [
+                                        ...chats[chatId]['messageList'],
+                                        messageId,
+                                    ],
                                 },
                             },
                         };
@@ -120,8 +140,6 @@ class MessageField extends React.Component {
             key={message.id}
         />
     )
-
-    // renderMessage = (message) => console.log(message)
 
     render() {
         const messageElements = Object.values(this.state.messages).map(

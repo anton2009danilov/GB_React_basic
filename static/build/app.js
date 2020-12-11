@@ -5731,15 +5731,21 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
 
     _this.sendMessage = function (message) {
       _this.setState(function (state) {
-        var messages = state.messages;
+        var messages = state.messages,
+            chats = state.chats;
+        var chatId = _this.props.chatId;
         var keys = Object.keys(messages);
-        var messageId = keys[keys.length - 1] + 1;
+        var messageId = parseInt(keys[keys.length - 1]) + 1;
+        console.log(chats, chatId, messageId);
         return {
           messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
             id: messageId,
             text: message,
             userName: _this.state.newUserName
           })),
+          chats: _objectSpread(_objectSpread({}, chats), {}, _defineProperty({}, chatId, _objectSpread(_objectSpread({}, chats[chatId]), {}, {
+            messageList: [].concat(_toConsumableArray(chats[chatId]['messageList']), [messageId])
+          }))),
           newMessage: ''
         };
       });
@@ -5780,7 +5786,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    value: function componentDidUpdate(prevProps, prevS) {
       var _this2 = this;
 
       console.log('updated');
@@ -5794,7 +5800,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
         return _this2.setState(function (state) {
           var messages = state.messages;
           var keys = Object.keys(messages);
-          var messageId = keys[keys.length - 1] + 1;
+          var messageId = parseInt(keys[keys.length - 1]) + 1;
           console.log(Object.values(messages)[keys.length - 1].userName);
           if (Object.values(messages)[keys.length - 1].userName !== 'Робот') return {
             messages: _objectSpread(_objectSpread({}, messages), {}, _defineProperty({}, messageId, {
