@@ -90,7 +90,6 @@ class MessageField extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevS) {
-        console.log('updated');
         const arr = [...Object.values(this.state.messages)];
         const lastMessage = arr[arr.length - 1];
         const userName = lastMessage.userName || 'Аноним';
@@ -142,10 +141,6 @@ class MessageField extends React.Component {
     )
 
     render() {
-        // const messageElements = Object.values(this.state.messages).map(
-        //     this.renderMessage
-        // );
-
         const { messages, chats } = this.state;
         const { chatId } = this.props;
 

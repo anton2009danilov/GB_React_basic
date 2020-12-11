@@ -5320,42 +5320,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! material-ui */ "../node_modules/material-ui/index.es.js");
 /* harmony import */ var _material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/Chat */ "../node_modules/@material-ui/icons/Chat.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
  // import Chat from "@material-ui/icons/Chat";
 
-function ChatList() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "col-sm-4 p-0"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.List, {
-    style: {
-      backgroundColor: 'lavender'
-    },
-    className: "d-flex flex-sm-row flex-wrap flex-lg-column mb-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    to: "/chat/1"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
-    primaryText: "Chat 1",
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
-      color: "primary"
-    })
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    to: "/chat/2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
-    primaryText: "Chat 2",
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
-      color: "primary"
-    })
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    to: "/chat/3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
-    primaryText: "Chat 3",
-    leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
-      color: "primary"
-    })
-  }))));
-}
+var ChatList = /*#__PURE__*/function (_React$Component) {
+  _inherits(ChatList, _React$Component);
+
+  var _super = _createSuper(ChatList);
+
+  function ChatList() {
+    _classCallCheck(this, ChatList);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ChatList, [{
+    key: "render",
+    value: function render() {
+      var renderChats = Object.values(this.props.chats).map(function (chat) {
+        console.log(chat);
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: '/chat/' + chat.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.ListItem, {
+          key: chat.id,
+          primaryText: 'Chat ' + chat.id,
+          leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_3__.default, {
+            color: "primary"
+          })
+        }));
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "col-sm-4 p-0"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_1__.List, {
+        style: {
+          backgroundColor: 'lavender'
+        },
+        className: "d-flex flex-sm-row flex-wrap flex-lg-column mb-2"
+      }, renderChats));
+    }
+  }]);
+
+  return ChatList;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
 
 /***/ }),
 
@@ -5496,9 +5528,52 @@ var Layout = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Layout);
 
   function Layout() {
+    var _this;
+
     _classCallCheck(this, Layout);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+    _this.state = {
+      chats: {
+        1: {
+          id: 1,
+          title: 'Чат 1',
+          messageList: [1]
+        },
+        2: {
+          id: 2,
+          title: 'Чат 2',
+          messageList: [2]
+        },
+        3: {
+          id: 3,
+          title: 'Чат 3',
+          messageList: []
+        }
+      },
+      chats2: {
+        1: {
+          id: 1,
+          title: 'Чат 1',
+          messageList: [1]
+        },
+        2: {
+          id: 2,
+          title: 'Чат 2',
+          messageList: [2]
+        },
+        3: {
+          id: 3,
+          title: 'Чат 3',
+          messageList: []
+        }
+      }
+    };
+    return _this;
   }
 
   _createClass(Layout, [{
@@ -5510,8 +5585,11 @@ var Layout = /*#__PURE__*/function (_React$Component) {
         className: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatList__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MessageField__WEBPACK_IMPORTED_MODULE_3__.default, {
-        chatId: this.props.chatId
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ChatList__WEBPACK_IMPORTED_MODULE_4__.default, {
+        chats: this.state.chats
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MessageField__WEBPACK_IMPORTED_MODULE_3__.default, {
+        chatId: this.props.chatId,
+        chats: this.state.chats
       }))));
     }
   }]);
@@ -5788,8 +5866,6 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate(prevProps, prevS) {
       var _this2 = this;
 
-      console.log('updated');
-
       var arr = _toConsumableArray(Object.values(this.state.messages));
 
       var lastMessage = arr[arr.length - 1];
@@ -5820,9 +5896,6 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      // const messageElements = Object.values(this.state.messages).map(
-      //     this.renderMessage
-      // );
       var _this$state = this.state,
           messages = _this$state.messages,
           chats = _this$state.chats;
