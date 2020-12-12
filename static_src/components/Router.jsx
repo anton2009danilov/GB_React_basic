@@ -9,6 +9,11 @@ export default class Router extends React.Component {
                 <Route exact path="/" component={Layout} />
                 <Route
                     exact
+                    path="/profile/"
+                    render={() => <Layout isProfilePage={true} />}
+                />
+                <Route
+                    exact
                     path="/chat/:chatId/"
                     render={(obj) => (
                         <Layout chatId={Number(obj.match.params.chatId)} />

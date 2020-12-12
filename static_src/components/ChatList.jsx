@@ -11,7 +11,7 @@ export default class ChatList extends React.Component {
             console.log(chat);
 
             return (
-                <Link to={'/chat/' + chat.id}>
+                <Link key={'list' + chat.id} to={'/chat/' + chat.id}>
                     <ListItem
                         key={chat.id}
                         primaryText={'Chat ' + chat.id}

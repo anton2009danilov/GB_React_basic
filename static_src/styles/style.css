@@ -37,3 +37,8 @@ p {
   margin-right: 15px;
   border-radius: 6px;
 }
+
+.header__profile {
+	color: #ffee0b;
+	/* font-size: 1.75rem; */
+}
