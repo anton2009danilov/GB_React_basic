@@ -21,6 +21,7 @@ export default class Layout extends React.Component {
             1: { id: 1, title: 'Чат 1', messageList: [1] },
             2: { id: 2, title: 'Чат 2', messageList: [2] },
             3: { id: 3, title: 'Чат 3', messageList: [] },
+            4: { id: 4, title: 'Чат 4', messageList: [] },
         },
         userName: 'Аноним',
         profileMessage: '',
@@ -49,12 +50,33 @@ export default class Layout extends React.Component {
         }
     }
 
+    updateChats = (messageId) => {
+        this.setState((state) => {
+            const { chats } = state;
+            const { chatId } = this.props;
+
+            return {
+                chats: {
+                    ...chats,
+                    [chatId]: {
+                        ...chats[chatId],
+                        messageList: [
+                            ...chats[chatId]['messageList'],
+                            messageId,
+                        ],
+                    },
+                },
+            };
+        });
+    }
+
     render() {
         return (
             <div>
                 <Header
                     chatId={this.props.chatId}
                     userName={this.state.userName}
+                    isProfilePage={this.props.isProfilePage}
                 />
                 <div className="container">
                     <div className="row">
@@ -75,6 +97,7 @@ export default class Layout extends React.Component {
                             chatId={this.props.chatId}
                             chats={this.state.chats}
                             userName={this.state.userName}
+                            updateChats={this.updateChats}
                         />
                     </div>
                 </div>

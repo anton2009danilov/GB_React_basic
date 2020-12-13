@@ -6,6 +6,7 @@ export default class Header extends React.Component {
     static propTypes = {
         chatId: PropTypes.number,
         userName: PropTypes.string,
+        isProfilePage: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -21,7 +22,12 @@ export default class Header extends React.Component {
                         {/* <a href="/"> */}
                         <img src="../img/logo.png" alt="" className="logo" />
                         {/* </a> */}
-                        <h3>Broken Chat {this.props.chatId}</h3>
+                        <h3>
+                            Broken Chat{' '}
+                            {this.props.isProfilePage
+                                ? 'Profile'
+                                : this.props.chatId}
+                        </h3>
                     </div>
 
                     <Link

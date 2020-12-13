@@ -12,11 +12,11 @@ class MessageField extends React.Component {
     }
 
     state = {
-        chats: {
-            1: { title: 'Чат 1', messageList: [1] },
-            2: { title: 'Чат 2', messageList: [2] },
-            3: { title: 'Чат 3', messageList: [] },
-        },
+        // chats: {
+        //     1: { title: 'Чат 1', messageList: [1] },
+        //     2: { title: 'Чат 2', messageList: [2] },
+        //     3: { title: 'Чат 3', messageList: [] },
+        // },
         messages: {
             1: {
                 id: 1,
@@ -45,6 +45,8 @@ class MessageField extends React.Component {
             const keys = Object.keys(messages);
             const messageId = parseInt(keys[keys.length - 1]) + 1;
 
+            this.props.updateChats(messageId);
+
             return {
                 messages: {
                     ...messages,
@@ -54,16 +56,16 @@ class MessageField extends React.Component {
                         userName: this.props.userName,
                     },
                 },
-                chats: {
-                    ...chats,
-                    [chatId]: {
-                        ...chats[chatId],
-                        messageList: [
-                            ...chats[chatId]['messageList'],
-                            messageId,
-                        ],
-                    },
-                },
+                // chats: {
+                //     ...chats,
+                //     [chatId]: {
+                //         ...chats[chatId],
+                //         messageList: [
+                //             ...chats[chatId]['messageList'],
+                //             messageId,
+                //         ],
+                //     },
+                // },
                 newMessage: '',
             };
         });
@@ -81,7 +83,7 @@ class MessageField extends React.Component {
     }
 
     componentDidMount() {
-        this.textInput.current.focus();
+        if (!this.props.isProfilePage) this.textInput.current.focus();
     }
 
     componentWillUnmount() {
@@ -106,7 +108,8 @@ class MessageField extends React.Component {
                     if (
                         Object.values(messages)[keys.length - 1].userName !==
                         'Робот'
-                    )
+                    ) {
+                        this.props.updateChats(messageId);
                         return {
                             messages: {
                                 ...messages,
@@ -116,17 +119,18 @@ class MessageField extends React.Component {
                                     userName: 'Робот',
                                 },
                             },
-                            chats: {
-                                ...chats,
-                                [chatId]: {
-                                    ...chats[chatId],
-                                    messageList: [
-                                        ...chats[chatId]['messageList'],
-                                        messageId,
-                                    ],
-                                },
-                            },
+                            // chats: {
+                            //     ...chats,
+                            //     [chatId]: {
+                            //         ...chats[chatId],
+                            //         messageList: [
+                            //             ...chats[chatId]['messageList'],
+                            //             messageId,
+                            //         ],
+                            //     },
+                            // },
                         };
+                    }
                 }),
             1000
         );
@@ -141,8 +145,8 @@ class MessageField extends React.Component {
     )
 
     render() {
-        const { messages, chats } = this.state;
-        const { chatId } = this.props;
+        const { messages } = this.state;
+        const { chatId, chats } = this.props;
 
         const messageElements = chats[chatId].messageList.map((messageId) =>
             this.renderMessage(messages[messageId])
