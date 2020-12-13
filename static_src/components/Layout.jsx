@@ -45,6 +45,13 @@ export default class Layout extends React.Component {
             return null;
         })
 
+    handleKeyUp = (event) => {
+        if (event.keyCode === 13) {
+            //Enter
+            this.handleClick();
+        }
+    }
+
     render() {
         return (
             <div>
@@ -62,6 +69,7 @@ export default class Layout extends React.Component {
                                 profileMessage={this.state.profileMessage}
                                 handleChange={this.handleChange}
                                 handleClick={this.handleClick}
+                                handleKeyUp={this.handleKeyUp}
                             />
                         ) : (
                             <MessageField

@@ -12,9 +12,7 @@ export default function Profile(props) {
                     name="newUserName"
                     value={props.newUserName}
                     onChange={props.handleChange}
-                    // onKeyUp={(event) =>
-                    //     this.handleKeyUp(event, props.newMessage)
-                    // }
+                    onKeyUp={(event) => props.handleKeyUp(event)}
                 />
                 <FloatingActionButton
                     style={{ width: 56, margin: 'auto' }}
