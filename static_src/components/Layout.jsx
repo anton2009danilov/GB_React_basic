@@ -44,9 +44,10 @@ export default class Layout extends React.Component {
                 }
 
                 const userName = this.state.newUserName || 'Аноним';
-                alert(`Новое имя пользователя "${userName}" сохранено`);
+                // alert(`Новое имя пользователя "${userName}" сохранено`);
                 return {
                     userName: userName,
+                    profileMessage: `Новое имя пользователя "${userName}" сохранено`,
                 };
             }
 
