@@ -8,6 +8,7 @@ import '../styles/style.css';
 class MessageField extends React.Component {
     static propTypes = {
         chatId: PropTypes.number.isRequired,
+        userName: PropTypes.string.isRequired,
     }
 
     state = {
@@ -28,8 +29,8 @@ class MessageField extends React.Component {
                 userName: 'Робот',
             },
         },
+        userName: this.props.userName,
         newMessage: '',
-        newUserName: '',
     }
 
     textInput = React.createRef()
@@ -51,7 +52,7 @@ class MessageField extends React.Component {
                     [messageId]: {
                         id: messageId,
                         text: message,
-                        userName: this.state.newUserName,
+                        userName: this.state.userName,
                     },
                 },
                 chats: {
@@ -89,19 +90,25 @@ class MessageField extends React.Component {
         clearTimeout(this.robotTimer);
     }
 
-    componentDidUpdate(prevProps, prevS) {
-        const arr = [...Object.values(this.state.messages)];
-        const lastMessage = arr[arr.length - 1];
-        const userName = lastMessage.userName || 'Аноним';
-        const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevState);
+        // const arr = [...Object.values(this.state.messages)];
+        // const lastMessage = arr[arr.length - 1];
 
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
                     const { messages, chats } = state;
                     const { chatId } = this.props;
+
                     const keys = Object.keys(messages);
+                    const lastMessage = Object.values(messages)[keys.length - 1];
+                    const userName = lastMessage.userName || 'Аноним';
+                    const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+
                     const messageId = parseInt(keys[keys.length - 1]) + 1;
+                    console.log(Object.values(messages));
+                    console.log(keys.length - 1);
 
                     if (
                         Object.values(messages)[keys.length - 1].userName !==
