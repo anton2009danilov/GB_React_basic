@@ -155,14 +155,6 @@ class MessageField extends React.Component {
                 <div className="d-flex flex-column card p-3 input_block">
                     <TextField
                         className="input"
-                        hintText="Введите имя пользователя"
-                        name="newUserName"
-                        value={this.state.newUserName}
-                        onChange={this.handleChange}
-                    />
-
-                    <TextField
-                        className="input"
                         hintText="Введите сообщение"
                         name="newMessage"
                         value={this.state.newMessage}

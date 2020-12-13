@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import ChatIcon from '@material-ui/icons/Chat';
 
-// import Chat from "@material-ui/icons/Chat";
-
 export default class ChatList extends React.Component {
     render() {
         const renderChats = Object.values(this.props.chats).map((chat) => {
-            console.log(chat);
+            // console.log(chat);
 
             return (
                 <Link key={'list' + chat.id} to={'/chat/' + chat.id}>
