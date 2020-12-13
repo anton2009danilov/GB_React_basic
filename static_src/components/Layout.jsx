@@ -23,19 +23,16 @@ export default class Layout extends React.Component {
             3: { id: 3, title: 'Чат 3', messageList: [] },
         },
         userName: 'Аноним',
-        profileMessage: 'test',
+        profileMessage: '',
         newUserName: '',
     }
 
     handleChange = (e) => {
-        console.log(e.target.name);
-        console.log(e.target.value);
         this.setState({ [e.target.name]: e.target.value });
     }
 
     handleClick = () =>
         this.setState((prevState) => {
-            console.log(this.state);
             if (prevState.userName !== this.state.newUserName)
                 return {
                     userName: this.state.newUserName,
@@ -62,7 +59,7 @@ export default class Layout extends React.Component {
                 <div className="container">
                     <div className="row">
                         <ChatList chats={this.state.chats} />
-                        {this.props.isProfilePage ? (
+                        {this.props.isProfilePage && (
                             <Profile
                                 userName={this.state.userName}
                                 newUserName={this.state.newUserName}
@@ -71,12 +68,14 @@ export default class Layout extends React.Component {
                                 handleClick={this.handleClick}
                                 handleKeyUp={this.handleKeyUp}
                             />
-                        ) : (
-                            <MessageField
-                                chatId={this.props.chatId}
-                                chats={this.state.chats}
-                            />
                         )}
+
+                        <MessageField
+                            hidden={this.props.isProfilePage ? true : false}
+                            chatId={this.props.chatId}
+                            chats={this.state.chats}
+                            userName={this.state.userName}
+                        />
                     </div>
                 </div>
             </div>

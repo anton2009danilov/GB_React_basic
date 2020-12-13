@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
     static propTypes = {
@@ -16,19 +17,20 @@ export default class Header extends React.Component {
         return (
             <div className="header d-flex align-items-center">
                 <div className="container d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                        <a href="/">
-                            <img
-                                src="../img/logo.png"
-                                alt=""
-                                className="logo"
-                            />
-                        </a>
+                    <div className="d-flex align-items-center ">
+                        {/* <a href="/"> */}
+                        <img src="../img/logo.png" alt="" className="logo" />
+                        {/* </a> */}
                         <h3>Broken Chat {this.props.chatId}</h3>
                     </div>
-                    <a className="header__profile" href="/profile">
+
+                    <Link
+                        key={'header' + this.props.userName}
+                        to={'/profile/'}
+                        className="header__profile"
+                    >
                         <h3>Профиль: {this.props.userName}</h3>
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

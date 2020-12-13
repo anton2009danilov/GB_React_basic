@@ -29,7 +29,6 @@ class MessageField extends React.Component {
                 userName: 'Робот',
             },
         },
-        userName: this.props.userName,
         newMessage: '',
     }
 
@@ -52,7 +51,7 @@ class MessageField extends React.Component {
                     [messageId]: {
                         id: messageId,
                         text: message,
-                        userName: this.state.userName,
+                        userName: this.props.userName,
                     },
                 },
                 chats: {
@@ -91,10 +90,6 @@ class MessageField extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevState);
-        // const arr = [...Object.values(this.state.messages)];
-        // const lastMessage = arr[arr.length - 1];
-
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
@@ -107,8 +102,6 @@ class MessageField extends React.Component {
                     const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
 
                     const messageId = parseInt(keys[keys.length - 1]) + 1;
-                    console.log(Object.values(messages));
-                    console.log(keys.length - 1);
 
                     if (
                         Object.values(messages)[keys.length - 1].userName !==
@@ -155,32 +148,37 @@ class MessageField extends React.Component {
             this.renderMessage(messages[messageId])
         );
 
-        return (
-            <div className="d-flex flex-column col-xs-12 col-sm-8">
-                {messageElements}
+        if (!this.props.hidden)
+            return (
+                <div className={'d-flex flex-column col-xs-12 col-sm-8 '}>
+                    {messageElements}
 
-                <div className="d-flex flex-column card p-3 input_block">
-                    <TextField
-                        className="input"
-                        hintText="Введите сообщение"
-                        name="newMessage"
-                        value={this.state.newMessage}
-                        onChange={this.handleChange}
-                        onKeyUp={(event) =>
-                            this.handleKeyUp(event, this.state.newMessage)
-                        }
-                        ref={this.textInput}
-                    />
+                    <div className="d-flex flex-column card p-3 input_block">
+                        <TextField
+                            className="input"
+                            hintText="Введите сообщение"
+                            name="newMessage"
+                            value={this.state.newMessage}
+                            onChange={this.handleChange}
+                            onKeyUp={(event) =>
+                                this.handleKeyUp(event, this.state.newMessage)
+                            }
+                            ref={this.textInput}
+                        />
 
-                    <FloatingActionButton
-                        style={{ width: 56, margin: 'auto' }}
-                        onClick={() => this.handleClick(this.state.newMessage)}
-                    >
-                        <SendIcon />
-                    </FloatingActionButton>
+                        <FloatingActionButton
+                            style={{ width: 56, margin: 'auto' }}
+                            onClick={() =>
+                                this.handleClick(this.state.newMessage)
+                            }
+                        >
+                            <SendIcon />
+                        </FloatingActionButton>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+
+        return null;
     }
 }
 
