@@ -68,7 +68,8 @@ class MessageField extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.isProfilePage) this.textInput.current.focus();
+        if (!this.props.isProfilePage && this.textInput.current)
+            this.textInput.current.focus();
     }
 
     componentWillUnmount() {
