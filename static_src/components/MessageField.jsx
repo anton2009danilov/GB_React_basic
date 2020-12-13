@@ -12,11 +12,6 @@ class MessageField extends React.Component {
     }
 
     state = {
-        // chats: {
-        //     1: { title: 'Чат 1', messageList: [1] },
-        //     2: { title: 'Чат 2', messageList: [2] },
-        //     3: { title: 'Чат 3', messageList: [] },
-        // },
         messages: {
             1: {
                 id: 1,
@@ -56,16 +51,6 @@ class MessageField extends React.Component {
                         userName: this.props.userName,
                     },
                 },
-                // chats: {
-                //     ...chats,
-                //     [chatId]: {
-                //         ...chats[chatId],
-                //         messageList: [
-                //             ...chats[chatId]['messageList'],
-                //             messageId,
-                //         ],
-                //     },
-                // },
                 newMessage: '',
             };
         });
@@ -119,16 +104,6 @@ class MessageField extends React.Component {
                                     userName: 'Робот',
                                 },
                             },
-                            // chats: {
-                            //     ...chats,
-                            //     [chatId]: {
-                            //         ...chats[chatId],
-                            //         messageList: [
-                            //             ...chats[chatId]['messageList'],
-                            //             messageId,
-                            //         ],
-                            //     },
-                            // },
                         };
                     }
                 }),
