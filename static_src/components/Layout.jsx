@@ -34,14 +34,20 @@ export default class Layout extends React.Component {
 
     handleClick = () =>
         this.setState((prevState) => {
-            if (prevState.userName !== this.state.newUserName)
-                alert(
-                    `Новое имя пользователя "${this.state.newUserName}" сохранено`
-                );
-            return {
-                userName: this.state.newUserName,
-                // profileMessage: `Новое имя пользователя "${this.state.newUserName}" сохранено`,
-            };
+            if (prevState.userName !== this.state.newUserName) {
+                if (
+                    prevState.userName === 'Аноним' &&
+                    !this.state.newUserName
+                ) {
+                    return null;
+                }
+
+                const userName = this.state.newUserName || 'Аноним';
+                alert(`Новое имя пользователя "${userName}" сохранено`);
+                return {
+                    userName: userName,
+                };
+            }
 
             return null;
         })
