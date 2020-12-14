@@ -23,10 +23,10 @@ export default class Header extends React.Component {
                         <img src="../img/logo.png" alt="" className="logo" />
                         {/* </a> */}
                         <h3>
-                            Broken Chat{' '}
+                            Broken Chat
                             {this.props.isProfilePage
-                                ? 'Profile'
-                                : this.props.chatId}
+                                ? ' Profile'
+                                : ' ' + this.props.chatId}
                         </h3>
                     </div>
 
