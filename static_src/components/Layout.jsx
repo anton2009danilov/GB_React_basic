@@ -52,8 +52,13 @@ export default class Layout extends React.Component {
                 //     return null;
                 // }
                 let userName = this.state.newUserName;
-                if (!this.state.newUserName.match(/\S+/)) {
+                if (
+                    !this.state.newUserName.match(/\S+/) &&
+                    prevState.userName !== 'Аноним'
+                ) {
                     userName = 'Аноним';
+                } else if (!this.state.newUserName.match(/\S+/)) {
+                    return null;
                 }
 
                 return {
