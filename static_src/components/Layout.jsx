@@ -20,6 +20,18 @@ export default class Layout extends React.Component {
             3: { id: 3, title: 'Чат 3', messageList: [] },
             4: { id: 4, title: 'Чат 4', messageList: [] },
         },
+        messages: {
+            1: {
+                id: 1,
+                text: 'Привет',
+                userName: 'Робот',
+            },
+            2: {
+                id: 2,
+                text: 'Как дела?',
+                userName: 'Робот',
+            },
+        },
         userName: 'Аноним',
         profileMessage: '',
         newUserName: '',
@@ -32,16 +44,18 @@ export default class Layout extends React.Component {
     handleClick = () =>
         this.setState((prevState) => {
             if (prevState.userName !== this.state.newUserName) {
-                if (
-                    (prevState.userName === 'Аноним' &&
-                        !this.state.newUserName.match(/\S+/)) ||
-                    !this.state.newUserName.match(/\S+/)
-                ) {
-                    return null;
+                // if (
+                //     (prevState.userName === 'Аноним' &&
+                //         !this.state.newUserName.match(/\S+/)) ||
+                //     !this.state.newUserName.match(/\S+/)
+                // ) {
+                //     return null;
+                // }
+                let userName = this.state.newUserName;
+                if (!this.state.newUserName.match(/\S+/)) {
+                    userName = 'Аноним';
                 }
 
-                const userName = this.state.newUserName || 'Аноним';
-                // alert(`Новое имя пользователя "${userName}" сохранено`);
                 return {
                     userName: userName,
                     profileMessage: `Новое имя пользователя "${userName}" сохранено`,
@@ -61,7 +75,6 @@ export default class Layout extends React.Component {
     updateChats = (messageId, chatId) => {
         this.setState((state) => {
             const { chats } = state;
-            // const { chatId } = this.props;
 
             return {
                 chats: {
@@ -78,43 +91,43 @@ export default class Layout extends React.Component {
         });
     }
 
+    sendMessage = (message, chatId, isRobot = false) => {
+        this.setState((state) => {
+            const { messages } = state;
+            const keys = Object.keys(messages);
+            const messageId = parseInt(keys[keys.length - 1]) + 1;
+
+            this.updateChats(messageId, chatId);
+
+            return {
+                messages: {
+                    ...messages,
+                    [messageId]: {
+                        id: messageId,
+                        text: message,
+                        userName: isRobot ? 'Робот' : this.state.userName,
+                    },
+                },
+                newMessage: '',
+            };
+        });
+    }
+
     render() {
         return (
             <div>
                 <Router
                     chats={this.state.chats}
+                    messages={this.state.messages}
                     userName={this.state.userName}
                     updateChats={this.updateChats}
+                    sendMessage={this.sendMessage}
+                    newUserName={this.state.newUserName}
+                    profileMessage={this.state.profileMessage}
+                    handleChange={this.handleChange}
+                    handleClick={this.handleClick}
+                    handleKeyUp={this.handleKeyUp}
                 />
-
-                {/* {this.props.isProfilePage && (
-                            <Profile
-                                userName={this.state.userName}
-                                newUserName={this.state.newUserName}
-                                profileMessage={this.state.profileMessage}
-                                handleChange={this.handleChange}
-                                handleClick={this.handleClick}
-                                handleKeyUp={this.handleKeyUp}
-                            />
-                        )}
-
-                        {chatExist ? (
-                            <MessageField
-                                hidden={this.props.isProfilePage ? true : false}
-                                chatId={this.props.chatId}
-                                chats={this.state.chats}
-                                userName={this.state.userName}
-                                updateChats={this.updateChats}
-                            />
-                        ) : (
-                            <div
-                                className={
-                                    'd-flex flex-column col-xs-12 col-sm-8 text-center'
-                                }
-                            >
-                                <h1>Вы перешли на пустую страницу</h1>
-                            </div>
-                        )} */}
             </div>
         );
     }

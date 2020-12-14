@@ -3,6 +3,8 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Header from './Header';
 import ChatList from './ChatList';
 import MessageField from './MessageField';
+import Chats from './Chats';
+import Profile from './Profile';
 
 export default class Router extends React.Component {
     render() {
@@ -11,64 +13,40 @@ export default class Router extends React.Component {
                 <Route exact path="/">
                     <Redirect to="/chat/1" />
                 </Route>
-                <Route exact path="/profile/" render={() => 'profile'} />
+                <Route
+                    exact
+                    path="/profile/"
+                    render={() => (
+                        <Profile
+                            userName={this.props.userName}
+                            chatId={this.props.chatId}
+                            newUserName={this.props.newUserName}
+                            profileMessage={this.props.profileMessage}
+                            handleChange={this.props.handleChange}
+                            handleClick={this.props.handleClick}
+                            handleKeyUp={this.props.handleKeyUp}
+                        />
+                    )}
+                />
+
                 <Route
                     exact
                     path="/chat/:chatId/"
-                    render={
-                        (obj) => {
-                            const chatId = Number(obj.match.params.chatId);
-                            const chatExist = this.props.chats[chatId];
-                            return (
-                                <>
-                                    <Header
-                                        chatId={
-                                            chatExist ? chatId : 'Not Found'
-                                            // ? this.props.chatId
-                                        }
-                                        userName={this.props.userName}
-                                    />
-                                    <div className="container">
-                                        <div className="row">
-                                            <ChatList
-                                                chats={this.props.chats}
-                                            />
-                                            {chatExist ? (
-                                                <MessageField
-                                                    // hidden={
-                                                    //     this.props.isProfilePage
-                                                    //         ? true
-                                                    //         : false
-                                                    // }
-                                                    // chatId={this.props.chatId}
-                                                    chatId={chatId}
-                                                    chats={this.props.chats}
-                                                    userName={
-                                                        this.props.userName
-                                                    }
-                                                    updateChats={
-                                                        this.props.updateChats
-                                                    }
-                                                />
-                                            ) : (
-                                                <div
-                                                    className={
-                                                        'd-flex flex-column col-xs-12 col-sm-8 text-center'
-                                                    }
-                                                >
-                                                    <h1>
-                                                        Вы перешли на пустую
-                                                        страницу
-                                                    </h1>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </>
-                            );
-                        }
-                        // <Layout chatId={Number(obj.match.params.chatId)} />
-                    }
+                    render={(obj) => {
+                        const chatId = Number(obj.match.params.chatId);
+                        const chatExist = this.props.chats[chatId];
+                        return (
+                            <Chats
+                                chatExist={chatExist}
+                                chatId={chatId}
+                                chats={this.props.chats}
+                                messages={this.props.messages}
+                                userName={this.props.userName}
+                                updateChats={this.props.updateChats}
+                                sendMessage={this.props.sendMessage}
+                            />
+                        );
+                    }}
                 />
             </Switch>
         );

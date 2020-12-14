@@ -12,18 +12,6 @@ class MessageField extends React.Component {
     }
 
     state = {
-        messages: {
-            1: {
-                id: 1,
-                text: 'Привет',
-                userName: 'Робот',
-            },
-            2: {
-                id: 2,
-                text: 'Как дела?',
-                userName: 'Робот',
-            },
-        },
         newMessage: '',
     }
 
@@ -33,37 +21,14 @@ class MessageField extends React.Component {
 
     handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
-    sendMessage = (message) => {
-        this.setState((state) => {
-            const { messages } = state;
-            const { chatId } = this.props;
-            const keys = Object.keys(messages);
-            const messageId = parseInt(keys[keys.length - 1]) + 1;
-
-            this.props.updateChats(messageId, chatId);
-
-            return {
-                messages: {
-                    ...messages,
-                    [messageId]: {
-                        id: messageId,
-                        text: message,
-                        userName: this.props.userName,
-                    },
-                },
-                newMessage: '',
-            };
-        });
-    }
-
     handleClick = (message) => {
-        this.sendMessage(message);
+        this.props.sendMessage(message, this.props.chatId);
     }
 
     handleKeyUp = (event, message) => {
         if (event.keyCode === 13) {
             //Enter
-            this.sendMessage(message);
+            this.props.sendMessage(message, this.props.chatId);
         }
     }
 
@@ -78,41 +43,23 @@ class MessageField extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        this.robotTimer = setTimeout(
-            () =>
-                this.setState((state) => {
-                    const { messages } = state;
-                    const { chatId } = this.props;
+        this.robotTimer = setTimeout(() => {
+            const { messages, chatId } = this.props;
 
-                    const keys = Object.keys(messages);
-                    const lastMessage = Object.values(messages)[keys.length - 1];
-                    const userName = lastMessage.userName || 'Аноним';
-                    const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+            const keys = Object.keys(messages);
+            const lastMessage = Object.values(messages)[keys.length - 1];
+            const userName = lastMessage.userName || 'Аноним';
+            const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
 
-                    const messageId = parseInt(keys[keys.length - 1]) + 1;
+            const messageId = parseInt(keys[keys.length - 1]) + 1;
 
-                    if (
-                        Object.values(messages)[keys.length - 1].userName !==
-                        'Робот'
-                    ) {
-                        this.props.updateChats(messageId, chatId);
-                        return {
-                            messages: {
-                                ...messages,
-                                [messageId]: {
-                                    id: messageId,
-                                    text: robotText,
-                                    userName: 'Робот',
-                                },
-                            },
-                        };
-                    }
-                }),
-            1000
-        );
+            if (Object.values(messages)[keys.length - 1].userName !== 'Робот') {
+                this.props.sendMessage(robotText, chatId, true);
+            }
+        }, 1000);
     }
 
-    renderMessage = (message, index) => (
+    renderMessage = (message) => (
         <Message
             text={message.text}
             userName={message.userName}
@@ -121,7 +68,7 @@ class MessageField extends React.Component {
     )
 
     render() {
-        const { messages } = this.state;
+        const { messages } = this.props;
         const { chatId, chats } = this.props;
 
         const messageElements = chats[chatId].messageList.map((messageId) =>
