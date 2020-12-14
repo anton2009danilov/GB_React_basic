@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import MessageField from './MessageField';
-import ChatList from './ChatList';
-import Profile from './Profile';
+import Router from './Router';
 
 export default class Layout extends React.Component {
     static propTypes = {
@@ -61,10 +58,10 @@ export default class Layout extends React.Component {
         }
     }
 
-    updateChats = (messageId) => {
+    updateChats = (messageId, chatId) => {
         this.setState((state) => {
             const { chats } = state;
-            const { chatId } = this.props;
+            // const { chatId } = this.props;
 
             return {
                 chats: {
@@ -82,18 +79,15 @@ export default class Layout extends React.Component {
     }
 
     render() {
-        const chatExist = this.state.chats[this.props.chatId];
         return (
             <div>
-                <Header
-                    chatId={chatExist ? this.props.chatId : 'Not Found'}
+                <Router
+                    chats={this.state.chats}
                     userName={this.state.userName}
-                    isProfilePage={this.props.isProfilePage}
+                    updateChats={this.updateChats}
                 />
-                <div className="container">
-                    <div className="row">
-                        <ChatList chats={this.state.chats} />
-                        {this.props.isProfilePage && (
+
+                {/* {this.props.isProfilePage && (
                             <Profile
                                 userName={this.state.userName}
                                 newUserName={this.state.newUserName}
@@ -120,9 +114,7 @@ export default class Layout extends React.Component {
                             >
                                 <h1>Вы перешли на пустую страницу</h1>
                             </div>
-                        )}
-                    </div>
-                </div>
+                        )} */}
             </div>
         );
     }

@@ -35,12 +35,12 @@ class MessageField extends React.Component {
 
     sendMessage = (message) => {
         this.setState((state) => {
-            const { messages, chats } = state;
+            const { messages } = state;
             const { chatId } = this.props;
             const keys = Object.keys(messages);
             const messageId = parseInt(keys[keys.length - 1]) + 1;
 
-            this.props.updateChats(messageId);
+            this.props.updateChats(messageId, chatId);
 
             return {
                 messages: {
@@ -81,7 +81,7 @@ class MessageField extends React.Component {
         this.robotTimer = setTimeout(
             () =>
                 this.setState((state) => {
-                    const { messages, chats } = state;
+                    const { messages } = state;
                     const { chatId } = this.props;
 
                     const keys = Object.keys(messages);
@@ -95,7 +95,7 @@ class MessageField extends React.Component {
                         Object.values(messages)[keys.length - 1].userName !==
                         'Робот'
                     ) {
-                        this.props.updateChats(messageId);
+                        this.props.updateChats(messageId, chatId);
                         return {
                             messages: {
                                 ...messages,
