@@ -82,10 +82,11 @@ export default class Layout extends React.Component {
     }
 
     render() {
+        const chatExist = this.state.chats[this.props.chatId];
         return (
             <div>
                 <Header
-                    chatId={this.props.chatId}
+                    chatId={chatExist ? this.props.chatId : 'Not Found'}
                     userName={this.state.userName}
                     isProfilePage={this.props.isProfilePage}
                 />
@@ -103,13 +104,23 @@ export default class Layout extends React.Component {
                             />
                         )}
 
-                        <MessageField
-                            hidden={this.props.isProfilePage ? true : false}
-                            chatId={this.props.chatId}
-                            chats={this.state.chats}
-                            userName={this.state.userName}
-                            updateChats={this.updateChats}
-                        />
+                        {chatExist ? (
+                            <MessageField
+                                hidden={this.props.isProfilePage ? true : false}
+                                chatId={this.props.chatId}
+                                chats={this.state.chats}
+                                userName={this.state.userName}
+                                updateChats={this.updateChats}
+                            />
+                        ) : (
+                            <div
+                                className={
+                                    'd-flex flex-column col-xs-12 col-sm-8 text-center'
+                                }
+                            >
+                                <h1>Вы перешли на пустую страницу</h1>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

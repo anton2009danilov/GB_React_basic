@@ -128,37 +128,32 @@ class MessageField extends React.Component {
             this.renderMessage(messages[messageId])
         );
 
-        if (!this.props.hidden)
-            return (
-                <div className={'d-flex flex-column col-xs-12 col-sm-8 '}>
-                    {messageElements}
+        return (
+            <div className={'d-flex flex-column col-xs-12 col-sm-8 '}>
+                {messageElements}
 
-                    <div className="d-flex flex-column card p-3 input_block">
-                        <TextField
-                            className="input"
-                            hintText="Введите сообщение"
-                            name="newMessage"
-                            value={this.state.newMessage}
-                            onChange={this.handleChange}
-                            onKeyUp={(event) =>
-                                this.handleKeyUp(event, this.state.newMessage)
-                            }
-                            ref={this.textInput}
-                        />
+                <div className="d-flex flex-column card p-3 input_block">
+                    <TextField
+                        className="input"
+                        hintText="Введите сообщение"
+                        name="newMessage"
+                        value={this.state.newMessage}
+                        onChange={this.handleChange}
+                        onKeyUp={(event) =>
+                            this.handleKeyUp(event, this.state.newMessage)
+                        }
+                        ref={this.textInput}
+                    />
 
-                        <FloatingActionButton
-                            style={{ width: 56, margin: 'auto' }}
-                            onClick={() =>
-                                this.handleClick(this.state.newMessage)
-                            }
-                        >
-                            <SendIcon />
-                        </FloatingActionButton>
-                    </div>
+                    <FloatingActionButton
+                        style={{ width: 56, margin: 'auto' }}
+                        onClick={() => this.handleClick(this.state.newMessage)}
+                    >
+                        <SendIcon />
+                    </FloatingActionButton>
                 </div>
-            );
-
-        return null;
+            </div>
+        );
     }
 }
 
