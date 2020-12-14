@@ -2,24 +2,17 @@ import React from 'react';
 import Message from './Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
+import PropTypes from 'prop-types';
 import '../styles/style.css';
 
 class MessageField extends React.Component {
+    static propTypes = {
+        chatId: PropTypes.number.isRequired,
+        userName: PropTypes.string.isRequired,
+    }
+
     state = {
-        messages: [
-            {
-                id: 1,
-                text: 'Привет',
-                userName: 'Donald',
-            },
-            {
-                id: 2,
-                text: 'Как дела?',
-                userName: 'Vova',
-            },
-        ],
         newMessage: '',
-        newUserName: '',
     }
 
     textInput = React.createRef()
@@ -28,35 +21,20 @@ class MessageField extends React.Component {
 
     handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
-    sendMessage = (message) => {
-        this.setState((state) => {
-            return {
-                messages: [
-                    ...state.messages,
-                    {
-                        id: state.messages[state.messages.length - 1].id + 1,
-                        text: message,
-                        userName: this.state.newUserName,
-                    },
-                ],
-                newMessage: '',
-            };
-        });
-    }
-
     handleClick = (message) => {
-        this.sendMessage(message);
+        this.props.sendMessage(message, this.props.chatId);
     }
 
     handleKeyUp = (event, message) => {
         if (event.keyCode === 13) {
             //Enter
-            this.sendMessage(message);
+            this.props.sendMessage(message, this.props.chatId);
         }
     }
 
     componentDidMount() {
-        this.textInput.current.focus();
+        if (!this.props.isProfilePage && this.textInput.current)
+            this.textInput.current.focus();
     }
 
     componentWillUnmount() {
@@ -64,35 +42,21 @@ class MessageField extends React.Component {
         clearTimeout(this.robotTimer);
     }
 
-    componentDidUpdate() {
-        const arr = [...this.state.messages];
-        const lastMessage = arr[arr.length - 1];
-        const userName = lastMessage.userName || 'Аноним';
-        const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+    componentDidUpdate(prevProps, prevState) {
+        this.robotTimer = setTimeout(() => {
+            const { messages, chatId } = this.props;
 
-        this.robotTimer = setTimeout(
-            () =>
-                this.setState((state) => {
-                    if (
-                        state.messages[state.messages.length - 1].userName !==
-                        'Робот'
-                    )
-                        return {
-                            messages: [
-                                ...state.messages,
-                                {
-                                    id:
-                                        state.messages[
-                                            state.messages.length - 1
-                                        ].id + 1,
-                                    text: robotText,
-                                    userName: 'Робот',
-                                },
-                            ],
-                        };
-                }),
-            1000
-        );
+            const keys = Object.keys(messages);
+            const lastMessage = Object.values(messages)[keys.length - 1];
+            const userName = lastMessage.userName || 'Аноним';
+            const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
+
+            const messageId = parseInt(keys[keys.length - 1]) + 1;
+
+            if (Object.values(messages)[keys.length - 1].userName !== 'Робот') {
+                this.props.sendMessage(robotText, chatId, true);
+            }
+        }, 1000);
     }
 
     renderMessage = (message) => (
@@ -104,21 +68,18 @@ class MessageField extends React.Component {
     )
 
     render() {
-        const messageElements = this.state.messages.map(this.renderMessage);
+        const { messages } = this.props;
+        const { chatId, chats } = this.props;
+
+        const messageElements = chats[chatId].messageList.map((messageId) =>
+            this.renderMessage(messages[messageId])
+        );
 
         return (
-            <div className="d-flex flex-column col-xs-12 col-sm-8">
+            <div className={'d-flex flex-column col-xs-12 col-sm-8 '}>
                 {messageElements}
 
                 <div className="d-flex flex-column card p-3 input_block">
-                    <TextField
-                        className="input"
-                        hintText="Введите имя пользователя"
-                        name="newUserName"
-                        value={this.state.newUserName}
-                        onChange={this.handleChange}
-                    />
-
                     <TextField
                         className="input"
                         hintText="Введите сообщение"
