@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from './Router';
+import { bindActionCreators } from 'redux';
+import connect from 'react-redux/es/connect/connect';
+import { sendMessage } from '../actions/messageActions';
+import { updateChats } from '../actions/chatActions';
 
-export default class Layout extends React.Component {
+class Layout extends React.Component {
     static propTypes = {
         chatId: PropTypes.number,
-        isProfilePage: PropTypes.bool,
+        sendMessage: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
         chatId: 1,
-        isProfilePage: false,
     }
 
     state = {
-        chats: {
-            1: { id: 1, title: 'Чат 1', messageList: [1] },
-            2: { id: 2, title: 'Чат 2', messageList: [2] },
-            3: { id: 3, title: 'Чат 3', messageList: [] },
-            4: { id: 4, title: 'Чат 4', messageList: [] },
-        },
+        // chats: {
+        //     1: { id: 1, title: 'Чат 1', messageList: [1] },
+        //     2: { id: 2, title: 'Чат 2', messageList: [2] },
+        //     3: { id: 3, title: 'Чат 3', messageList: [] },
+        //     4: { id: 4, title: 'Чат 4', messageList: [] },
+        // },
         messages: {
             1: {
                 id: 1,
@@ -77,55 +80,54 @@ export default class Layout extends React.Component {
         }
     }
 
-    updateChats = (messageId, chatId) => {
-        this.setState((state) => {
-            const { chats } = state;
+    // updateChats = (messageId, chatId) => {
+    //     this.setState((state) => {
+    //         const { chats } = state;
 
-            return {
-                chats: {
-                    ...chats,
-                    [chatId]: {
-                        ...chats[chatId],
-                        messageList: [
-                            ...chats[chatId]['messageList'],
-                            messageId,
-                        ],
-                    },
-                },
-            };
-        });
-    }
+    //         return {
+    //             chats: {
+    //                 ...chats,
+    //                 [chatId]: {
+    //                     ...chats[chatId],
+    //                     messageList: [
+    //                         ...chats[chatId]['messageList'],
+    //                         messageId,
+    //                     ],
+    //                 },
+    //             },
+    //         };
+    //     });
+    // }
 
     sendMessage = (message, chatId, isRobot = false) => {
-        this.setState((state) => {
-            const { messages } = state;
-            const keys = Object.keys(messages);
-            const messageId = parseInt(keys[keys.length - 1]) + 1;
+        const { messages } = this.state;
+        const keys = Object.keys(messages);
+        const messageId = parseInt(keys[keys.length - 1]) + 1;
+        const userName = isRobot ? 'Робот' : this.state.userName;
 
-            this.updateChats(messageId, chatId);
-
-            return {
-                messages: {
-                    ...messages,
-                    [messageId]: {
-                        id: messageId,
-                        text: message,
-                        userName: isRobot ? 'Робот' : this.state.userName,
-                    },
+        this.setState({
+            messages: {
+                ...messages,
+                [messageId]: {
+                    id: messageId,
+                    text: message,
+                    userName: userName,
                 },
-                newMessage: '',
-            };
+            },
+            newMessage: '',
         });
+        this.props.updateChats(messageId, chatId);
+        // this.props.sendMessage(messageId, message, userName, chatId);
     }
 
     render() {
         return (
             <div>
                 <Router
-                    chats={this.state.chats}
+                    // chats={this.state.chats}
                     messages={this.state.messages}
                     userName={this.state.userName}
-                    updateChats={this.updateChats}
+                    updateChats={this.props.updateChats}
                     sendMessage={this.sendMessage}
                     newUserName={this.state.newUserName}
                     profileMessage={this.state.profileMessage}
@@ -137,3 +139,10 @@ export default class Layout extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({}) => ({});
+
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators({ sendMessage, updateChats }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

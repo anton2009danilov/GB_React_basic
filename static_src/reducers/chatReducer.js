@@ -1,6 +1,7 @@
 import update from 'react-addons-update';
 import { SEND_MESSAGE } from '../actions/messageActions';
 import { ADD_CHAT } from '../actions/chatActions';
+import { UPDATE_CHATS } from '../actions/chatActions';
 
 const initialStore = {
 	chats: {
@@ -35,6 +36,22 @@ export default function chatReducer(store = initialStore, action) {
 						}
 					}
 				}
+			});
+		}
+		case UPDATE_CHATS: {
+			return update(store, {
+				chats: {
+					$merge: {
+						[action.chatId]: {
+							...store.chats[action.chatId],
+							messageList: [
+								...store.chats[action.chatId]['messageList'],
+								action.messageId,
+							],
+						},
+
+					}
+				},
 			});
 		}
 		default:

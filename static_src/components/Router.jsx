@@ -1,12 +1,11 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
-import Header from './Header';
-import ChatList from './ChatList';
-import MessageField from './MessageField';
+import { bindActionCreators } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import Chats from './Chats';
 import Profile from './Profile';
 
-export default class Router extends React.Component {
+class Router extends React.Component {
     render() {
         return (
             <Switch>
@@ -52,3 +51,11 @@ export default class Router extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Router);
