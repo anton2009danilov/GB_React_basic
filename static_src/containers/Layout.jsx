@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import { sendMessage } from '../actions/messageActions';
 import { updateChats } from '../actions/chatActions';
+import { changeUserName } from '../actions/profileActions';
 
 class Layout extends React.Component {
     static propTypes = {
@@ -17,7 +18,7 @@ class Layout extends React.Component {
     }
 
     state = {
-        userName: 'Аноним',
+        // userName: 'Аноним',
         profileMessage: '',
         newUserName: '',
     }
@@ -26,34 +27,41 @@ class Layout extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleClick = () =>
-        this.setState((prevState) => {
-            if (prevState.userName !== this.state.newUserName) {
-                // if (
-                //     (prevState.userName === 'Аноним' &&
-                //         !this.state.newUserName.match(/\S+/)) ||
-                //     !this.state.newUserName.match(/\S+/)
-                // ) {
-                //     return null;
-                // }
-                let userName = this.state.newUserName;
-                if (
-                    !this.state.newUserName.match(/\S+/) &&
-                    prevState.userName !== 'Аноним'
-                ) {
-                    userName = 'Аноним';
-                } else if (!this.state.newUserName.match(/\S+/)) {
-                    return null;
-                }
+    handleClick = () => {
+        let userName = this.state.newUserName;
 
-                return {
-                    userName: userName,
-                    profileMessage: `Новое имя пользователя "${userName}" сохранено`,
-                };
-            }
-
+        if (!userName.match(/\S+/) && this.props.userName !== 'Аноним') {
+            userName = 'Аноним';
+        } else if (!this.state.newUserName.match(/\S+/)) {
             return null;
-        })
+        }
+
+        if (this.props.changeUserName(userName)) {
+            this.setState({
+                profileMessage: `Новое имя пользователя "${userName}" сохранено`,
+            });
+        }
+
+        // this.setState((prevState) => {
+        //     if (prevState.userName !== this.state.newUserName) {
+        //         if (
+        //             !this.state.newUserName.match(/\S+/) &&
+        //             prevState.userName !== 'Аноним'
+        //         ) {
+        //             userName = 'Аноним';
+        //         } else if (!this.state.newUserName.match(/\S+/)) {
+        //             return null;
+        //         }
+
+        //         return {
+        //             userName: userName,
+        //             profileMessage: `Новое имя пользователя "${userName}" сохранено`,
+        //         };
+        //     }
+
+        //     return null;
+        // });
+    }
 
     handleKeyUp = (event) => {
         if (event.keyCode === 13) {
@@ -66,7 +74,7 @@ class Layout extends React.Component {
         const { messages } = this.props;
         const keys = Object.keys(messages);
         const messageId = parseInt(keys[keys.length - 1]) + 1;
-        const userName = isRobot ? 'Робот' : this.state.userName;
+        const userName = isRobot ? 'Робот' : this.props.userName;
 
         this.props.sendMessage(message, messageId, userName);
         this.props.updateChats(messageId, chatId);
@@ -79,7 +87,7 @@ class Layout extends React.Component {
                 <Router
                     // chats={this.state.chats}
                     // messages={this.props.messages}
-                    userName={this.state.userName}
+                    // userName={this.props.userName}
                     updateChats={this.props.updateChats}
                     sendMessage={this.sendMessage}
                     newUserName={this.state.newUserName}
@@ -95,9 +103,10 @@ class Layout extends React.Component {
 
 const mapStateToProps = ({ chatReducer }) => ({
     messages: chatReducer.messages,
+    userName: chatReducer.userName,
 });
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ sendMessage, updateChats }, dispatch);
+    bindActionCreators({ sendMessage, updateChats, changeUserName }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

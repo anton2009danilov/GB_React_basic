@@ -2,6 +2,7 @@ import update from 'react-addons-update';
 import { SEND_MESSAGE } from '../actions/messageActions';
 import { ADD_CHAT } from '../actions/chatActions';
 import { UPDATE_CHATS } from '../actions/chatActions';
+import { CHANGE_USER_NAME } from '../actions/profileActions';
 
 const initialStore = {
 	chats: {
@@ -21,6 +22,7 @@ const initialStore = {
 			userName: 'Робот',
 		},
 	},
+	userName: 'Аноним',
 };
 
 export default function chatReducer(store = initialStore, action) {
@@ -66,6 +68,13 @@ export default function chatReducer(store = initialStore, action) {
 
 					}
 				},
+			});
+		}
+		case CHANGE_USER_NAME: {
+			return update(store, {
+				userName: {
+					$set: action.userName
+				}
 			});
 		}
 		default:

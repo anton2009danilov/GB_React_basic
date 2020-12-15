@@ -54,6 +54,7 @@ class Router extends React.Component {
 
 const mapStateToProps = ({ chatReducer }) => ({
     chats: chatReducer.chats,
+    userName: chatReducer.userName,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
