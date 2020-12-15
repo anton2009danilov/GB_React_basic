@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
-import Message from './Message';
+import Message from '../components/Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import PropTypes from 'prop-types';

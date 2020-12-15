@@ -17,12 +17,6 @@ class Layout extends React.Component {
     }
 
     state = {
-        // chats: {
-        //     1: { id: 1, title: 'Чат 1', messageList: [1] },
-        //     2: { id: 2, title: 'Чат 2', messageList: [2] },
-        //     3: { id: 3, title: 'Чат 3', messageList: [] },
-        //     4: { id: 4, title: 'Чат 4', messageList: [] },
-        // },
         messages: {
             1: {
                 id: 1,
@@ -79,25 +73,6 @@ class Layout extends React.Component {
             this.handleClick();
         }
     }
-
-    // updateChats = (messageId, chatId) => {
-    //     this.setState((state) => {
-    //         const { chats } = state;
-
-    //         return {
-    //             chats: {
-    //                 ...chats,
-    //                 [chatId]: {
-    //                     ...chats[chatId],
-    //                     messageList: [
-    //                         ...chats[chatId]['messageList'],
-    //                         messageId,
-    //                     ],
-    //                 },
-    //             },
-    //         };
-    //     });
-    // }
 
     sendMessage = (message, chatId, isRobot = false) => {
         const { messages } = this.state;

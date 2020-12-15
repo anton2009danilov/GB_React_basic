@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Layout from './components/Layout';
+import Layout from './containers/Layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import initStore from './utils/store';
 
