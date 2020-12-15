@@ -38,8 +38,8 @@ class Router extends React.Component {
                             <Chats
                                 chatExist={chatExist}
                                 chatId={chatId}
-                                chats={this.props.chats}
-                                messages={this.props.messages}
+                                // chats={this.props.chats}
+                                // messages={this.props.messages}
                                 userName={this.props.userName}
                                 updateChats={this.props.updateChats}
                                 sendMessage={this.props.sendMessage}

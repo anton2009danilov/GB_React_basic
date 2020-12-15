@@ -17,18 +17,6 @@ class Layout extends React.Component {
     }
 
     state = {
-        messages: {
-            1: {
-                id: 1,
-                text: 'Привет',
-                userName: 'Робот',
-            },
-            2: {
-                id: 2,
-                text: 'Как дела?',
-                userName: 'Робот',
-            },
-        },
         userName: 'Аноним',
         profileMessage: '',
         newUserName: '',
@@ -75,22 +63,12 @@ class Layout extends React.Component {
     }
 
     sendMessage = (message, chatId, isRobot = false) => {
-        const { messages } = this.state;
+        const { messages } = this.props;
         const keys = Object.keys(messages);
         const messageId = parseInt(keys[keys.length - 1]) + 1;
         const userName = isRobot ? 'Робот' : this.state.userName;
 
-        this.setState({
-            messages: {
-                ...messages,
-                [messageId]: {
-                    id: messageId,
-                    text: message,
-                    userName: userName,
-                },
-            },
-            newMessage: '',
-        });
+        this.props.sendMessage(message, messageId, userName);
         this.props.updateChats(messageId, chatId);
         // this.props.sendMessage(messageId, message, userName, chatId);
     }
@@ -100,7 +78,7 @@ class Layout extends React.Component {
             <div>
                 <Router
                     // chats={this.state.chats}
-                    messages={this.state.messages}
+                    // messages={this.props.messages}
                     userName={this.state.userName}
                     updateChats={this.props.updateChats}
                     sendMessage={this.sendMessage}
@@ -115,7 +93,9 @@ class Layout extends React.Component {
     }
 }
 
-const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({ chatReducer }) => ({
+    messages: chatReducer.messages,
+});
 
 const mapDispatchToProps = (dispatch) =>
     bindActionCreators({ sendMessage, updateChats }, dispatch);

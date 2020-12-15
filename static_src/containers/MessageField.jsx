@@ -25,12 +25,18 @@ class MessageField extends React.Component {
 
     handleClick = (message) => {
         this.props.sendMessage(message, this.props.chatId);
+        this.setState({
+            newMessage: '',
+        });
     }
 
     handleKeyUp = (event, message) => {
         if (event.keyCode === 13) {
             //Enter
             this.props.sendMessage(message, this.props.chatId);
+            this.setState({
+                newMessage: '',
+            });
         }
     }
 
@@ -108,6 +114,7 @@ class MessageField extends React.Component {
 
 const mapStateToProps = ({ chatReducer }) => ({
     chats: chatReducer.chats,
+    messages: chatReducer.messages,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
