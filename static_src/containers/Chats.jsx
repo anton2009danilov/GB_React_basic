@@ -17,8 +17,6 @@ export default class Chats extends React.Component {
                         {this.props.chatExist ? (
                             <MessageField
                                 chatId={this.props.chatId}
-                                // chats={this.props.chats}
-                                // messages={this.props.messages}
                                 userName={this.props.userName}
                                 updateChats={this.props.updateChats}
                                 sendMessage={this.props.sendMessage}

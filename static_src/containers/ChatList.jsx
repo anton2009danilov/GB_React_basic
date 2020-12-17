@@ -1,6 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { addChat } from '../actions/chatActions';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui';

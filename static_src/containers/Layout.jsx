@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from './Router';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { sendMessage } from '../actions/messageActions';
 import { updateChats } from '../actions/chatActions';
 import { changeUserName } from '../actions/profileActions';
@@ -41,26 +41,6 @@ class Layout extends React.Component {
                 profileMessage: `Новое имя пользователя "${userName}" сохранено`,
             });
         }
-
-        // this.setState((prevState) => {
-        //     if (prevState.userName !== this.state.newUserName) {
-        //         if (
-        //             !this.state.newUserName.match(/\S+/) &&
-        //             prevState.userName !== 'Аноним'
-        //         ) {
-        //             userName = 'Аноним';
-        //         } else if (!this.state.newUserName.match(/\S+/)) {
-        //             return null;
-        //         }
-
-        //         return {
-        //             userName: userName,
-        //             profileMessage: `Новое имя пользователя "${userName}" сохранено`,
-        //         };
-        //     }
-
-        //     return null;
-        // });
     }
 
     handleKeyUp = (event) => {
@@ -78,16 +58,12 @@ class Layout extends React.Component {
 
         this.props.sendMessage(message, messageId, userName);
         this.props.updateChats(messageId, chatId);
-        // this.props.sendMessage(messageId, message, userName, chatId);
     }
 
     render() {
         return (
             <div>
                 <Router
-                    // chats={this.state.chats}
-                    // messages={this.props.messages}
-                    // userName={this.props.userName}
                     updateChats={this.props.updateChats}
                     sendMessage={this.sendMessage}
                     newUserName={this.state.newUserName}

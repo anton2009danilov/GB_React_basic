@@ -1,6 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import Message from '../components/Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
@@ -117,6 +117,6 @@ const mapStateToProps = ({ chatReducer }) => ({
     messages: chatReducer.messages,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageField);

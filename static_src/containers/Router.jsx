@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import Chats from './Chats';
 import Profile from './Profile';
 
@@ -38,8 +38,6 @@ class Router extends React.Component {
                             <Chats
                                 chatExist={chatExist}
                                 chatId={chatId}
-                                // chats={this.props.chats}
-                                // messages={this.props.messages}
                                 userName={this.props.userName}
                                 updateChats={this.props.updateChats}
                                 sendMessage={this.props.sendMessage}
