@@ -1,5 +1,7 @@
 import React from 'react';
-import Message from './Message';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Message from '../components/Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import PropTypes from 'prop-types';
@@ -23,12 +25,18 @@ class MessageField extends React.Component {
 
     handleClick = (message) => {
         this.props.sendMessage(message, this.props.chatId);
+        this.setState({
+            newMessage: '',
+        });
     }
 
     handleKeyUp = (event, message) => {
         if (event.keyCode === 13) {
             //Enter
             this.props.sendMessage(message, this.props.chatId);
+            this.setState({
+                newMessage: '',
+            });
         }
     }
 
@@ -104,4 +112,11 @@ class MessageField extends React.Component {
     }
 }
 
-export default MessageField;
+const mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+    messages: chatReducer.messages,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageField);

@@ -1,9 +1,12 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addChat } from '../actions/chatActions';
 import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import ChatIcon from '@material-ui/icons/Chat';
 
-export default class ChatList extends React.Component {
+class ChatList extends React.Component {
     renderChats = () => {
         return Object.values(this.props.chats).map((chat) => {
             return (
@@ -31,3 +34,12 @@ export default class ChatList extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+});
+
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators({ addChat }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
