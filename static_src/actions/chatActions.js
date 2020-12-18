@@ -6,8 +6,9 @@ export const addChat = (title) => ({
 	title
 });
 
-export const updateChats = (messageId, chatId) => ({
+export const updateChats = (messageId, chatId, userName) => ({
 	type: UPDATE_CHATS,
 	messageId,
-	chatId
+	chatId,
+	userName
 });
