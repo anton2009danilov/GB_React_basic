@@ -5533,7 +5533,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var ChatList = /*#__PURE__*/function (_React$Component) {
   _inherits(ChatList, _React$Component);
 
@@ -5556,21 +5555,16 @@ var ChatList = /*#__PURE__*/function (_React$Component) {
 
     _this.renderChats = function () {
       return Object.values(_this.props.chats).map(function (chat) {
-        return (
-          /*#__PURE__*/
-          // <Link key={'list' + chat.id} to={'/chat/' + chat.id}>
-          react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_4__.ListItem, {
-            key: chat.id,
-            primaryText: 'Chat ' + chat.id,
-            leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_5__.default, {
-              color: "primary"
-            }),
-            onClick: function onClick() {
-              return _this.handleNavigate("/chat/".concat(chat.id));
-            }
-          }) // </Link>
-
-        );
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(material_ui__WEBPACK_IMPORTED_MODULE_4__.ListItem, {
+          key: chat.id,
+          primaryText: 'Chat ' + chat.id,
+          leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Chat__WEBPACK_IMPORTED_MODULE_5__.default, {
+            color: "primary"
+          }),
+          onClick: function onClick() {
+            return _this.handleNavigate("/chat/".concat(chat.id));
+          }
+        });
       });
     };
 
@@ -5600,10 +5594,8 @@ ChatList.propTypes = {
 };
 
 var mapStateToProps = function mapStateToProps(_ref) {
-  var router = _ref.router,
-      chatReducer = _ref.chatReducer;
+  var chatReducer = _ref.chatReducer;
   return {
-    router: router,
     chats: chatReducer.chats
   };
 };
@@ -5713,19 +5705,24 @@ var Chats = /*#__PURE__*/function (_React$Component) {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Header
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! connected-react-router */ "../node_modules/connected-react-router/esm/actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5751,34 +5748,51 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
 var Header = /*#__PURE__*/function (_React$Component) {
   _inherits(Header, _React$Component);
 
   var _super = _createSuper(Header);
 
   function Header() {
+    var _this;
+
     _classCallCheck(this, Header);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _this.handleNavigate = function (link) {
+      _this.props.push(link);
+    };
+
+    return _this;
   }
 
   _createClass(Header, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "header d-flex align-items-center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "container d-flex align-items-center justify-content-between"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "d-flex align-items-center "
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-        key: 'header_link',
-        to: '/chat/1'
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         src: "../img/logo.png",
         alt: "",
-        className: "logo"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Broken Chat", this.props.isProfilePage ? ' Profile' : ' ' + this.props.chatId)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        className: "logo",
+        onClick: function onClick() {
+          return _this2.handleNavigate("/chat/1");
+        }
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Broken Chat", this.props.isProfilePage ? ' Profile' : ' ' + this.props.chatId)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
         key: 'header' + this.props.userName,
         to: '/profile/',
         className: "header__profile"
@@ -5799,6 +5813,19 @@ Header.defaultProps = {
   userName: 'Аноним'
 };
 
+var mapStateToProps = function mapStateToProps(_ref) {
+  _objectDestructuringEmpty(_ref);
+
+  return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return (0,redux__WEBPACK_IMPORTED_MODULE_4__.bindActionCreators)({
+    push: connected_react_router__WEBPACK_IMPORTED_MODULE_5__.push
+  }, dispatch);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, mapDispatchToProps)(Header));
 
 /***/ }),
 
@@ -6090,20 +6117,7 @@ var MessageField = /*#__PURE__*/function (_React$Component) {
     value: function componentWillUnmount() {
       console.log('unmounted');
       clearTimeout(this.robotTimer);
-    } // componentDidUpdate(prevProps, prevState) {
-    //     this.robotTimer = setTimeout(() => {
-    //         const { messages, chatId } = this.props;
-    //         const keys = Object.keys(messages);
-    //         const lastMessage = Object.values(messages)[keys.length - 1];
-    //         const userName = lastMessage.userName || 'Аноним';
-    //         const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
-    //         const messageId = parseInt(keys[keys.length - 1]) + 1;
-    //         if (Object.values(messages)[keys.length - 1].userName !== 'Робот') {
-    //             this.props.sendMessage(robotText, chatId, true);
-    //         }
-    //     }, 1000);
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -6429,7 +6443,6 @@ __webpack_require__.r(__webpack_exports__);
           console.log(action);
 
           if (action.userName !== 'Робот') {
-            console.log('Надо ответить, наверно');
             var messageId = Object.keys(store.getState().chatReducer.messages).length + 1;
             setTimeout(function () {
               store.dispatch((0,_actions_messageActions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)('Не приставай ко мне, я - робот!', messageId, 'Робот'));

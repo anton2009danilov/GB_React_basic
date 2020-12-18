@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import { addChat } from '../actions/chatActions';
-import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui';
 import ChatIcon from '@material-ui/icons/Chat';
 
@@ -21,14 +20,12 @@ class ChatList extends React.Component {
     renderChats = () => {
         return Object.values(this.props.chats).map((chat) => {
             return (
-                // <Link key={'list' + chat.id} to={'/chat/' + chat.id}>
                 <ListItem
                     key={chat.id}
                     primaryText={'Chat ' + chat.id}
                     leftIcon={<ChatIcon color="primary" />}
                     onClick={() => this.handleNavigate(`/chat/${chat.id}`)}
                 />
-                // </Link>
             );
         });
     }
@@ -47,8 +44,7 @@ class ChatList extends React.Component {
     }
 }
 
-const mapStateToProps = ({ router, chatReducer }) => ({
-    router: router,
+const mapStateToProps = ({ chatReducer }) => ({
     chats: chatReducer.chats,
 });
 

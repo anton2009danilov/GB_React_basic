@@ -6,7 +6,6 @@ export default store => next => (action) => {
 		case UPDATE_CHATS:
 			console.log(action);
 			if (action.userName !== 'Робот') {
-				console.log('Надо ответить, наверно');
 				const messageId = Object.keys(store.getState().chatReducer.messages).length + 1;
 				setTimeout(() => {
 					store.dispatch(
