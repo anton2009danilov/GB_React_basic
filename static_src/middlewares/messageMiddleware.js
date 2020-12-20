@@ -4,10 +4,12 @@ import { sendMessage, SEND_MESSAGE } from '../actions/messageActions';
 export default store => next => (action) => {
 	switch (action.type) {
 		case UPDATE_CHATS:
-			console.log(action);
+			if (sessionStorage.getItem('robotTimer'))
+				clearTimeout(sessionStorage.getItem('robotTimer'));
+
 			if (action.userName !== 'Робот') {
 				const messageId = Object.keys(store.getState().chatReducer.messages).length + 1;
-				setTimeout(() => {
+				const robotTimer = setTimeout(() => {
 					store.dispatch(
 						sendMessage(
 							'Не приставай ко мне, я - робот!',
@@ -17,7 +19,8 @@ export default store => next => (action) => {
 					store.dispatch(
 						updateChats(messageId, action.chatId, 'Робот')
 					);
-				}, 1);
+				}, 1000);
+				sessionStorage.setItem('robotTimer', robotTimer);
 			}
 	}
 	return next(action);
