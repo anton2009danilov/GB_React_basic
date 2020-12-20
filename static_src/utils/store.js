@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/automergeLevel2';
 import initReducers from './../reducers';
 import middlewares from '../middlewares';
+import thunk from 'redux-thunk';
 
 const persistConfig = {
 	key: 'geekmessanger',
@@ -23,7 +24,7 @@ export default function initStore() {
 		persistReducer(persistConfig, initReducers(history)),
 		innitialStore,
 		compose(
-			applyMiddleware(routerMiddleware(history), ...middlewares),
+			applyMiddleware(routerMiddleware(history), thunk),
 			window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => { },
 		)
 	);

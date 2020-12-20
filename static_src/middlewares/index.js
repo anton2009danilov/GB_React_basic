@@ -1,3 +1,3 @@
-import messageMiddleware from './messageMiddleware';
+import { sendMessageThunk } from './messageMiddleware';
 
-export default [messageMiddleware];
+export default [sendMessageThunk];

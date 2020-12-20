@@ -5,4 +5,5 @@ export const sendMessage = (message, messageId, userName, chatId) => ({
 	message,
 	messageId,
 	userName,
+	chatId
 });
