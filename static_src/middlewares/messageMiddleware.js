@@ -1,6 +1,6 @@
 import { updateChats } from '../actions/chatActions';
 import { sendMessage } from '../actions/messageActions';
-
+import { toggleChatAttention } from '../actions/chatActions';
 
 export const sendMessageThunk = (message, messageId, userName, chatId) =>
 	(dispatch) => {
@@ -21,7 +21,14 @@ export const sendMessageThunk = (message, messageId, userName, chatId) =>
 				dispatch(
 					updateChats(messageId + 1, chatId, 'Робот')
 				);
+
+				dispatch(toggleChatAttention(chatId));
+				// dispatch(toggleChatAttention(chatId));
+				// setTimeout(() => dispatch(toggleChatAttention(chatId), 2000));
+
 			}, 1000);
+
 			sessionStorage.setItem('robotTimer', robotTimer);
+
 		}
 	};

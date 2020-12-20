@@ -1,14 +1,14 @@
 import update from 'react-addons-update';
 import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT } from '../actions/chatActions';
+import { ADD_CHAT, TOGGLE_CHAT_ATTENTION } from '../actions/chatActions';
 import { UPDATE_CHATS } from '../actions/chatActions';
 import { CHANGE_USER_NAME } from '../actions/profileActions';
 
 const initialStore = {
 	chats: {
-		1: { id: 1, title: 'Чат 1', messageList: [1] },
-		2: { id: 2, title: 'Чат 2', messageList: [2] },
-		3: { id: 3, title: 'Чат 3', messageList: [] },
+		1: { id: 1, title: 'Чат 1', messageList: [1], attention: false },
+		2: { id: 2, title: 'Чат 2', messageList: [2], attention: false },
+		3: { id: 3, title: 'Чат 3', messageList: [], attention: false },
 	},
 	messages: {
 		1: {
@@ -77,6 +77,18 @@ export default function chatReducer(store = initialStore, action) {
 				}
 			});
 		}
+		case TOGGLE_CHAT_ATTENTION: {
+			return update(store, {
+				chats: {
+					$merge: {
+						[action.chatId]: {
+							...store.chats[action.chatId],
+							attention: !store.chats[action.chatId].attention,
+						}
+					}
+				}
+			});
+		};
 		default:
 			return store;
 	}
