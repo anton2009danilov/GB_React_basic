@@ -5,11 +5,10 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/automergeLevel2';
 import initReducers from './../reducers';
-import middlewares from '../middlewares';
 import thunk from 'redux-thunk';
 
 const persistConfig = {
-	key: 'geekmessanger',
+	key: 'root',
 	storage,
 	stateReconciler: autoMergeLevel2,
 	whitelist: ['messageReducer', 'chatReducer'],
