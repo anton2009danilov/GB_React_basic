@@ -50,23 +50,6 @@ class MessageField extends React.Component {
         clearTimeout(this.robotTimer);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        this.robotTimer = setTimeout(() => {
-            const { messages, chatId } = this.props;
-
-            const keys = Object.keys(messages);
-            const lastMessage = Object.values(messages)[keys.length - 1];
-            const userName = lastMessage.userName || 'Аноним';
-            const robotText = `Не приставай ко мне, ${userName}! Я - робот!`;
-
-            const messageId = parseInt(keys[keys.length - 1]) + 1;
-
-            if (Object.values(messages)[keys.length - 1].userName !== 'Робот') {
-                this.props.sendMessage(robotText, chatId, true);
-            }
-        }, 1000);
-    }
-
     renderMessage = (message) => (
         <Message
             text={message.text}

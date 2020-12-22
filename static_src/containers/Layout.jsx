@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { sendMessage } from '../actions/messageActions';
 import { updateChats } from '../actions/chatActions';
 import { changeUserName } from '../actions/profileActions';
+import { sendMessageThunk } from '../middlewares/messageMiddleware';
 
 class Layout extends React.Component {
     static propTypes = {
@@ -56,7 +57,7 @@ class Layout extends React.Component {
         const messageId = parseInt(keys[keys.length - 1]) + 1;
         const userName = isRobot ? 'Робот' : this.props.userName;
 
-        this.props.sendMessage(message, messageId, userName);
+        this.props.sendMessageThunk(message, messageId, userName, chatId);
         this.props.updateChats(messageId, chatId);
     }
 
@@ -83,6 +84,9 @@ const mapStateToProps = ({ chatReducer }) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ sendMessage, updateChats, changeUserName }, dispatch);
+    bindActionCreators(
+        { sendMessage, sendMessageThunk, updateChats, changeUserName },
+        dispatch
+    );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

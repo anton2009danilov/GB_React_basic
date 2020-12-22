@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     static propTypes = {
         chatId: PropTypes.number,
         userName: PropTypes.string,
@@ -14,18 +17,21 @@ export default class Header extends React.Component {
         userName: 'Аноним',
     }
 
+    handleNavigate = (link) => {
+        this.props.push(link);
+    }
+
     render() {
         return (
             <div className="header d-flex align-items-center">
                 <div className="container d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center ">
-                        <Link key={'header_link'} to={'/chat/1'}>
-                            <img
-                                src="../img/logo.png"
-                                alt=""
-                                className="logo"
-                            />
-                        </Link>
+                        <img
+                            src="../img/logo.png"
+                            alt=""
+                            className="logo"
+                            onClick={() => this.handleNavigate(`/chat/1`)}
+                        />
                         <h3>
                             Broken Chat
                             {this.props.isProfilePage
@@ -46,3 +52,9 @@ export default class Header extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({}) => ({});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ push }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
