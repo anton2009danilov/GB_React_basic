@@ -1,6 +1,8 @@
 export const ADD_CHAT = '@@chat/ADD_CHAT';
 export const UPDATE_CHATS = '@@chat/UPDATE_CHATS';
-export const TOGGLE_CHAT_ATTENTION = '@@chat/DRAW_ATTENTION';
+export const TOGGLE_CHAT_ATTENTION = '@@chat/TOGGLE_ATTENTION';
+export const ENABLE_CHAT_ATTENTION = '@@chat/ENABLE_CHAT_ATTENTION';
+export const DISABLE_CHAT_ATTENTION = '@@chat/DISABLE_CHAT_ATTENTION';
 
 export const addChat = (title) => ({
 	type: ADD_CHAT,
@@ -14,7 +16,12 @@ export const updateChats = (messageId, chatId, userName) => ({
 	userName
 });
 
-export const toggleChatAttention = (chatId) => ({
-	type: TOGGLE_CHAT_ATTENTION,
+export const enableChatAttention = (chatId) => ({
+	type: ENABLE_CHAT_ATTENTION,
+	chatId,
+});
+
+export const disableChatAttention = (chatId) => ({
+	type: DISABLE_CHAT_ATTENTION,
 	chatId,
 });

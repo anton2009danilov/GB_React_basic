@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { addChat } from '../actions/chatActions';
 import { List, ListItem } from 'material-ui';
 import ChatIcon from '@material-ui/icons/Chat';
-import { toggleChatAttention } from '../actions/chatActions';
 
 class ChatList extends React.Component {
     static propTypes = {
@@ -18,24 +17,11 @@ class ChatList extends React.Component {
         this.props.push(link);
     }
 
-    getAttention = (chat) => {
-        if (chat.attention) {
-            const attentionTimer = setTimeout(
-                () => this.props.toggleChatAttention(chat.id),
-                2000
-            );
-            sessionStorage.setItem('chatAttentionTimer', attentionTimer);
-            return 'blink_me';
-        }
-        return '';
-    }
-
     renderChats = () => {
         return Object.values(this.props.chats).map((chat) => {
             return (
                 <ListItem
-                    // style={chat.attention ? { backgroundColor: '#00d4fe' } : ''}
-                    className={this.getAttention(chat)}
+                    className={chat.attention ? 'blink_me' : ''}
                     key={chat.id}
                     primaryText={'Chat ' + chat.id}
                     leftIcon={<ChatIcon color="primary" />}
@@ -64,6 +50,6 @@ const mapStateToProps = ({ chatReducer }) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ addChat, push, toggleChatAttention }, dispatch);
+    bindActionCreators({ addChat, push }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

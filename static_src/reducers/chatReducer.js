@@ -1,6 +1,6 @@
 import update from 'react-addons-update';
 import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT, TOGGLE_CHAT_ATTENTION } from '../actions/chatActions';
+import { ADD_CHAT, ENABLE_CHAT_ATTENTION, DISABLE_CHAT_ATTENTION } from '../actions/chatActions';
 import { UPDATE_CHATS } from '../actions/chatActions';
 import { CHANGE_USER_NAME } from '../actions/profileActions';
 
@@ -77,13 +77,25 @@ export default function chatReducer(store = initialStore, action) {
 				}
 			});
 		}
-		case TOGGLE_CHAT_ATTENTION: {
+		case ENABLE_CHAT_ATTENTION: {
 			return update(store, {
 				chats: {
 					$merge: {
 						[action.chatId]: {
 							...store.chats[action.chatId],
-							attention: !store.chats[action.chatId].attention,
+							attention: true,
+						}
+					}
+				}
+			});
+		};
+		case DISABLE_CHAT_ATTENTION: {
+			return update(store, {
+				chats: {
+					$merge: {
+						[action.chatId]: {
+							...store.chats[action.chatId],
+							attention: false,
 						}
 					}
 				}
