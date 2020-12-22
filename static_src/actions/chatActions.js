@@ -1,6 +1,5 @@
 export const ADD_CHAT = '@@chat/ADD_CHAT';
 export const UPDATE_CHATS = '@@chat/UPDATE_CHATS';
-export const TOGGLE_CHAT_ATTENTION = '@@chat/TOGGLE_ATTENTION';
 export const ENABLE_CHAT_ATTENTION = '@@chat/ENABLE_CHAT_ATTENTION';
 export const DISABLE_CHAT_ATTENTION = '@@chat/DISABLE_CHAT_ATTENTION';
 
