@@ -29,6 +29,7 @@ p {
 	padding: 2px;
 	margin-right: 15px;
 	border-radius: 6px;
+	cursor: pointer;
 }
 
 .header__profile {

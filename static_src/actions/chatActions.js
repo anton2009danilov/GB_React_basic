@@ -3,9 +3,10 @@ export const UPDATE_CHATS = '@@chat/UPDATE_CHATS';
 export const ENABLE_CHAT_ATTENTION = '@@chat/ENABLE_CHAT_ATTENTION';
 export const DISABLE_CHAT_ATTENTION = '@@chat/DISABLE_CHAT_ATTENTION';
 
-export const addChat = (title) => ({
+export const addChat = (title, chatId = null) => ({
 	type: ADD_CHAT,
-	title
+	title,
+	chatId
 });
 
 export const updateChats = (messageId, chatId, userName) => ({

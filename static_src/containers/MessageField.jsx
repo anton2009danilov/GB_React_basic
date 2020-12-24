@@ -45,10 +45,8 @@ class MessageField extends React.Component {
 
     componentDidMount() {
         const { chats, chatId } = this.props;
-        console.log(chats[chatId].messageList.length);
-        console.log(chats[chatId].messageList);
 
-        if (!(chats[chatId].messageList.length > 0)) {
+        if (!chats[chatId].messageList.length) {
             fetch('/api/messages.json')
                 .then((data) => data.json())
                 .then((messages) => {
