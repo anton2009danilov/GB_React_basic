@@ -17,6 +17,21 @@ class ChatList extends React.Component {
         this.props.push(link);
     }
 
+    componentDidMount() {
+        const { chats } = this.props;
+
+        if (!Object.keys(chats).length) {
+            fetch('/api/chats.json')
+                .then((data) => data.json())
+                .then((chats) => {
+                    const arr = Object.values(chats);
+                    arr.map((chat) => {
+                        this.props.addChat(chat.title, chat.id);
+                    });
+                });
+        }
+    }
+
     renderChats = () => {
         return Object.values(this.props.chats).map((chat) => {
             return (

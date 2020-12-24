@@ -5,23 +5,8 @@ import { UPDATE_CHATS } from '../actions/chatActions';
 import { CHANGE_USER_NAME } from '../actions/profileActions';
 
 const initialStore = {
-	chats: {
-		1: { id: 1, title: 'Чат 1', messageList: [1], attention: false },
-		2: { id: 2, title: 'Чат 2', messageList: [2], attention: false },
-		3: { id: 3, title: 'Чат 3', messageList: [], attention: false },
-	},
-	messages: {
-		1: {
-			id: 1,
-			text: 'Привет',
-			userName: 'Робот',
-		},
-		2: {
-			id: 2,
-			text: 'Как дела?',
-			userName: 'Робот',
-		},
-	},
+	chats: {},
+	messages: {},
 	userName: 'Аноним',
 };
 
@@ -42,11 +27,17 @@ export default function chatReducer(store = initialStore, action) {
 			});
 		}
 		case ADD_CHAT: {
-			const chatId = Object.keys(store.chats).length + 1;
+			console.log(action.title);
+			let id;
+			action.chatId
+				? id = action.chatId
+				: id = Object.keys(store.chats).length + 1;
+
 			return update(store, {
 				chats: {
 					$merge: {
-						[chatId]: {
+						[id]: {
+							id: id,
 							title: action.title,
 							messageList: []
 						}
