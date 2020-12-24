@@ -5,6 +5,8 @@ import Message from '../components/Message';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import PropTypes from 'prop-types';
+import { sendMessageThunk } from '../middlewares/messageMiddleware';
+import { updateChats } from '../actions/chatActions';
 import '../styles/style.css';
 
 class MessageField extends React.Component {
@@ -24,6 +26,7 @@ class MessageField extends React.Component {
     handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
     handleClick = (message) => {
+        console.log(1111);
         this.props.sendMessage(message, this.props.chatId);
         this.setState({
             newMessage: '',
@@ -41,6 +44,27 @@ class MessageField extends React.Component {
     }
 
     componentDidMount() {
+        const { chats, chatId } = this.props;
+        console.log(chats[chatId].messageList.length);
+        console.log(chats[chatId].messageList);
+
+        if (!(chats[chatId].messageList.length > 0)) {
+            fetch('/api/messages.json')
+                .then((data) => data.json())
+                .then((messages) => {
+                    const arr = Object.values(messages);
+                    arr.map((message) => {
+                        this.props.sendMessageThunk(
+                            message.text,
+                            message.id,
+                            message.userName,
+                            message.chatId
+                        );
+                        this.props.updateChats(message.id, message.chatId);
+                    });
+                });
+        }
+
         if (!this.props.isProfilePage && this.textInput.current)
             this.textInput.current.focus();
     }
@@ -62,9 +86,13 @@ class MessageField extends React.Component {
         const { messages } = this.props;
         const { chatId, chats } = this.props;
 
-        const messageElements = chats[chatId].messageList.map((messageId) =>
-            this.renderMessage(messages[messageId])
-        );
+        let messageElements;
+
+        if (Object.keys(messages).length > 0) {
+            messageElements = chats[chatId].messageList.map((messageId) =>
+                messageId ? this.renderMessage(messages[messageId]) : null
+            );
+        }
 
         return (
             <div className={'d-flex flex-column col-xs-12 col-sm-8 '}>
@@ -100,6 +128,7 @@ const mapStateToProps = ({ chatReducer }) => ({
     messages: chatReducer.messages,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({});
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators({ updateChats, sendMessageThunk }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageField);

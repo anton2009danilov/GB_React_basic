@@ -6,22 +6,11 @@ import { CHANGE_USER_NAME } from '../actions/profileActions';
 
 const initialStore = {
 	chats: {
-		1: { id: 1, title: 'Чат 1', messageList: [1], attention: false },
-		2: { id: 2, title: 'Чат 2', messageList: [2], attention: false },
+		1: { id: 1, title: 'Чат 1', messageList: [], attention: false },
+		2: { id: 2, title: 'Чат 2', messageList: [], attention: false },
 		3: { id: 3, title: 'Чат 3', messageList: [], attention: false },
 	},
-	messages: {
-		1: {
-			id: 1,
-			text: 'Привет',
-			userName: 'Робот',
-		},
-		2: {
-			id: 2,
-			text: 'Как дела?',
-			userName: 'Робот',
-		},
-	},
+	messages: {},
 	userName: 'Аноним',
 };
 
